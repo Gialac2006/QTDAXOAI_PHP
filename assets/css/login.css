@@ -1,0 +1,160 @@
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #fffbe7 0%, #e0ffd8 100%);
+    overflow: hidden;
+    font-family: 'Baloo 2', Arial, sans-serif;
+    animation: fadeIn 2s ease;
+}
+
+#cloud-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #c0deed url("assets/img/bg.jpg") top center repeat-x;
+    animation: cloud-scroll 30s linear infinite;
+    z-index: 0;
+    opacity: 0.7;
+}
+
+@keyframes cloud-scroll {
+    0% { background-position: 0 0; }
+    100% { background-position: 100% 0; }
+}
+
+@keyframes fadeIn {
+    0% { filter: blur(10px); opacity: 0;}
+    100% { filter: blur(0); opacity: 1;}
+}
+
+.flying-mango {
+    position: fixed;
+    left: -70px;
+    z-index: 1;
+    pointer-events: none;
+    filter: drop-shadow(0 2px 6px #ffd36b80);
+    user-select: none;
+    transition: transform 0.2s;
+    will-change: left, top;
+}
+
+.container {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.box {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 32px;
+    box-shadow: 0 8px 32px 0 rgba(120,150,70,0.18);
+    padding: 44px 32px 32px 32px;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    animation: appear 1.4s cubic-bezier(.61,-0.04,.37,1.05);
+    backdrop-filter: blur(4px);
+}
+
+@keyframes appear {
+    0% {transform: translateY(80px) scale(.85); opacity:0;}
+    100% {transform: translateY(0) scale(1); opacity:1;}
+}
+
+.title {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #fcc419;
+    letter-spacing: 2px;
+    text-shadow: 2px 4px 16px #fff6b8, 0 2px 4px #e1a23b60;
+    margin-bottom: 22px;
+    margin-top: 0;
+    background: linear-gradient(90deg, #42c77a 25%, #fcc419 60%, #fe912c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.tab-btns {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    margin-bottom: 22px;
+}
+
+.tab-btn {
+    padding: 7px 38px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #42c77a 25%, #fe912c 100%);
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+    opacity: 0.85;
+}
+
+.tab-btn.active {
+    background: linear-gradient(90deg, #fcc419 20%, #42c77a 80%);
+    color: #474747;
+    opacity: 1;
+}
+
+form {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+input {
+    border: 1.5px solid #ececeb;
+    border-radius: 15px;
+    padding: 20px;
+    font-size: 1rem;
+    transition: border 0.2s;
+    outline: none;
+}
+
+input:focus {
+    border-color: #fcc419;
+    background: #fffde3;
+}
+
+.submit-btn {
+    padding: 11px;
+    background: linear-gradient(90deg, #42c77a 30%, #fcc419 80%);
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    font-size: 1.08rem;
+    font-weight: bold;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.submit-btn:hover {
+    background: linear-gradient(90deg, #fcc419 30%, #fe912c 100%);
+    color: #333;
+}
+
+.switch-link {
+    font-size: 0.95rem;
+    color: #3b7e5e;
+    margin-top: 8px;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#login-message, #register-message {
+    min-height: 20px;
+    font-size: 0.97rem;
+    margin-bottom: -6px;
+}

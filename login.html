@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chào mừng đến Đồng Tháp</title>
+    <link href="https://fonts.googleapis.com/css?family=Baloo+2:700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/login.css">
+</head>
+<body>
+<div id="cloud-bg"></div>
+<div id="mango-container"></div>
+
+<div class="container">
+    <div class="box">
+        <div class="title">CHÀO MỪNG ĐẾN ĐỒNG THÁP</div>
+        <div class="tab-btns">
+            <button class="tab-btn active" onclick="showTab('login')">Đăng nhập</button>
+            <button class="tab-btn" onclick="showTab('register')">Đăng ký</button>
+        </div>
+        <form id="login-form">
+            <input id="login-username" type="text" placeholder="Tên đăng nhập" required>
+            <input id="login-password" type="password" placeholder="Mật khẩu" required>
+            <button type="submit" class="submit-btn">Đăng nhập</button>
+            <div id="login-message"></div>
+            <div class="switch-link" onclick="showTab('register')">Chưa có tài khoản? Đăng ký</div>
+        </form>
+        <form id="register-form" style="display: none;">
+            <input id="reg-username" type="text" placeholder="Tên đăng nhập" required>
+            <input id="reg-email" type="email" placeholder="Email" required>
+            <input id="reg-password" type="password" placeholder="Mật khẩu" required>
+            <input id="reg-repassword" type="password" placeholder="Nhập lại mật khẩu" required>
+            <button type="submit" class="submit-btn">Đăng ký</button>
+            <div id="register-message"></div>
+            <div class="switch-link" onclick="showTab('login')">Đã có tài khoản? Đăng nhập</div>
+        </form>
+    </div>
+</div>
+
+<script src="assets/js/login.js"></script>
+</body>
+</html>
