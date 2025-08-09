@@ -14,7 +14,8 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: #c0deed url("assets/img/bg.jpg") top center repeat-x;
+
+    background-image: url('/QTDAXOAI_PHP/assets/img/bg.jpg');
     animation: cloud-scroll 30s linear infinite;
     z-index: 0;
     opacity: 0.7;

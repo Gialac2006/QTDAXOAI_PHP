@@ -1,0 +1,117 @@
+/* ABOUT – XOÀI CÁT HÒA LỘC */
+* { box-sizing: border-box; }
+body {
+  font-family: 'Montserrat', Arial, sans-serif;
+  margin: 0; background: #fff; color: #181818;
+}
+
+/* NAVBAR */
+.navbar{
+  width:100%; position:fixed; top:0; left:0; z-index:100; height:64px;
+  display:flex; align-items:center; justify-content:center;
+  background:#111 !important; box-shadow:0 2px 16px #0005; border:none;
+}
+.navbar-menu{
+  display:flex; align-items:center; justify-content:center;
+  gap:38px; list-style:none; margin:0; padding:0; background:none !important;
+}
+.navbar-item{
+  position:relative; font-size:.9rem; font-weight:700; text-transform:uppercase;
+  color:#fff; cursor:pointer; transition:color .2s; height:64px; display:flex;
+  align-items:center; letter-spacing:1px; background:none !important;
+}
+.navbar-item>a{ text-decoration:none; color:inherit; padding:0 6px; }
+.navbar-item:hover>a,.navbar-item:focus>a{ color:#ffcc33; }
+.navbar-dropdown{
+  position:absolute; top:64px; left:50%; transform:translateX(-50%);
+  background:rgba(20,20,20,.96); padding:10px 0; border-radius:10px;
+  box-shadow:0 10px 30px rgba(0,0,0,.35); opacity:0; visibility:hidden;
+  transition:all .22s; pointer-events:none; min-width:max-content; z-index:99;
+}
+.navbar-item:hover .navbar-dropdown{ opacity:1; visibility:visible; pointer-events:auto; }
+.navbar-dropdown a{
+  display:block; padding:10px 22px; color:#fff; text-decoration:none; font-weight:500;
+  border-radius:7px; white-space:nowrap; background:none !important; font-size:1rem;
+  transition:background .17s, color .16s;
+}
+.navbar-dropdown a:hover{ background:rgba(255,255,255,.09); color:#ffcc33; }
+
+/* HEADER */
+.header{
+  position:relative; height:530px; overflow:hidden; display:flex;
+  align-items:center; justify-content:center; margin-top:64px;
+}
+.header-bgmedia{ position:absolute; inset:0; z-index:1; overflow:hidden; }
+.header-bgmedia video{ width:100%; height:100%; object-fit:cover; filter:brightness(.85) contrast(1.1); }
+.header-content{ z-index:2; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); text-align:center; width:100%; }
+.header-title{
+  font-size:4.2rem; font-weight:700; letter-spacing:-2px; margin:0; line-height:1.07;
+  text-transform:uppercase; color:#fff; text-shadow:1px 2px 10px #2227; display:inline-block;
+  background:rgba(17,17,17,.38); padding:18px 44px 16px; border-radius:16px;
+}
+.header-title span{ color:#ffe24d; display:block; }
+.header::after{
+  content:""; position:absolute; inset:0; background:linear-gradient(90deg,#000 65%,#000c 100%);
+  opacity:.77; z-index:2; pointer-events:none;
+}
+
+/* MAIN */
+.main{
+  display:flex; gap:48px; max-width:1120px; margin:-88px auto 0;
+  background:#fff; border-radius:18px;
+  box-shadow:0 10px 36px #1112, 0 1.5px 6px #ffd60022;
+  padding:56px 46px; position:relative; z-index:3;
+}
+.main-left{ flex:2; display:flex; flex-direction:column; justify-content:center; }
+.main-left h2{ font-size:1.35rem; color:#fbc02d; font-weight:700; margin:0 0 14px; }
+.main-left h3{ font-size:1.63rem; font-weight:700; color:#2d5016; margin:0 0 16px; }
+.main-left p{ font-size:1.07rem; color:#30371a; line-height:1.6; }
+.main-right{ flex:1.18; display:flex; align-items:flex-start; justify-content:center; }
+
+.video-box{
+  width:350px; height:200px; background:#e2e2e2; border-radius:14px; overflow:hidden;
+  box-shadow:0 3px 16px #ffd60055; display:flex; align-items:center; justify-content:center; position:relative;
+}
+.video-box img, .video-box video{ width:100%; height:100%; object-fit:cover; display:block; }
+.video-play{
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  background:#fffad7cc; border:none; border-radius:50%; width:56px; height:56px; cursor:pointer;
+  box-shadow:0 3px 16px #ffd60066;
+}
+.video-play::before{
+  content:""; display:block; width:0; height:0;
+  border-left:22px solid #fbc02d; border-top:13px solid transparent; border-bottom:13px solid transparent; margin-left:4px;
+}
+
+/* TEAM */
+.team-section{ max-width:1120px; margin:60px auto 40px; padding:0 24px; }
+.team-title{ text-align:center; color:#388e3c; font-size:2.1rem; font-weight:700; margin-bottom:30px; letter-spacing:1px; text-transform:uppercase; }
+.team-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:32px; justify-items:center; }
+.team-card{
+  background:#fff; border-radius:17px; text-align:center; padding:30px 14px 18px;
+  box-shadow:0 2px 14px #ffd60028; transition:transform .22s; min-width:180px;
+}
+.team-card:hover{ transform:translateY(-7px) scale(1.045); box-shadow:0 12px 22px #fbc02d22; }
+.team-card img{
+  width:92px; height:92px; object-fit:cover; border-radius:50%; border:3px solid #ffe24d; margin-bottom:17px; box-shadow:0 2px 8px #efeeea9a;
+}
+.team-card h4{ margin:0 0 6px; color:#20481e; font-size:1.12rem; font-weight:700; letter-spacing:.5px; }
+.team-card p{ margin:0; color:#53781b; font-size:.97rem; font-weight:500; }
+
+/* Responsive */
+@media (max-width:900px){
+  .navbar-menu{ gap:12px; }
+  .main{ flex-direction:column; gap:28px; padding:26px 8px; }
+  .header-title{ font-size:2.6rem; }
+  .header{ height:310px; margin-top:64px; }
+}
+@media (max-width:600px){
+  .navbar-menu{ flex-direction:column; gap:3px; }
+  .navbar-item{ height:auto; font-size:.97rem; }
+  .navbar-dropdown{ position:static; transform:none; }
+  .header{ height:180px; margin-top:64px; }
+  .header-title{ font-size:1.4rem; padding:7px 10px; }
+  .main{ margin-top:-36px; padding:8px 2px; }
+  .video-box{ width:98vw; max-width:340px; }
+  .team-section{ padding:0 2px; }
+}
