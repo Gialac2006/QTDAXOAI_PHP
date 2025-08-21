@@ -64,6 +64,8 @@ $who  = htmlspecialchars($user['HoTen'] ?? $user['TenDangNhap'] ?? 'Admin');
         <li><a href="index.php?p=thuocbvtv" class="<?php echo $page==='thuocbvtv'?'active':''; ?>">Thuốc bảo vệ thực vật</a></li>
         <li><a href="index.php?p=phanbon" class="<?php echo $page==='phanbon'?'active':''; ?>"> Phân bón</a></li>
         <li><a href="index.php?p=canhtac" class="<?php echo $page==='canhtac'?'active':''; ?>"> Canh tác</a></li>
+        <li><a href="index.php?p=thietbimaymoc" class="<?php echo $page==='thietbimaymoc'?'active':''; ?>"> Thiết bị máy móc</a></li>
+
 
 
 

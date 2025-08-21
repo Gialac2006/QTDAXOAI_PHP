@@ -15,13 +15,26 @@ function safeCount(mysqli $conn, array $candidates): ?int {
 }
 
 $cntHo   = safeCount($conn, ['honongdan','ho_nong_dan']);
+$cntGiong   = safeCount($conn, ['giongxoai','giong_xoai']);
 $cntVung = safeCount($conn, ['vungtrong','vung_trong']);
-$cntIoT  = safeCount($conn, ['thietbiiot','thiet_bi_iot']);
+$cntTen = safeCount($conn, ['nguoidung','nguoi_dung']);
+$cntBvtv = safeCount($conn, ['thuocbvtv','thuoc_bvtv']);
+$cntPhan = safeCount($conn, ['phanbon','phan_bon']);
+$cntCanh = safeCount($conn, ['canhtac','canh_tac']);
+$cntMay = safeCount($conn, ['thietbimaymoc','thiet_bi_may_moc']);
+
 
 $missing = [];
 if ($cntHo   === null) $missing[] = 'honongdan/ho_nong_dan';
+if ($cntGiong   === null) $missing[] = 'giongxoai/giong_xoai';
 if ($cntVung === null) $missing[] = 'vungtrong/vung_trong';
-if ($cntIoT  === null) $missing[] = 'thietbiiot/thiet_bi_iot';
+if ($cntTen === null) $missing[] = 'nguoidung/nguoi_dung';
+if ($cntBvtv === null) $missing[] = 'thuocbvtv/thuoc_bvtv';
+if ($cntPhan === null) $missing[] = 'phanbon/phan_bon';
+if ($cntCanh === null) $missing[] = 'canhtac/canh_tac';
+if ($cntMay === null) $missing[] = 'thietbimaymoc/thiet_bi_may_moc';
+
+
 ?>
 <h1>📊 Tổng quan</h1>
 <?php if ($missing): ?>
@@ -36,12 +49,33 @@ if ($cntIoT  === null) $missing[] = 'thietbiiot/thiet_bi_iot';
     <div class="muted">Hộ nông dân</div>
     <div style="font-size:28px;font-weight:800"><?php echo $cntHo===null?'—':$cntHo; ?></div>
   </div>
+   <div class="card">
+    <div class="muted">Giống xoài</div>
+    <div style="font-size:28px;font-weight:800"><?php echo $cntGiong===null?'—':$cntGiong; ?></div>
+  </div>
   <div class="card">
     <div class="muted">Vùng trồng</div>
     <div style="font-size:28px;font-weight:800"><?php echo $cntVung===null?'—':$cntVung; ?></div>
   </div>
   <div class="card">
-    <div class="muted">Thiết bị IoT</div>
-    <div style="font-size:28px;font-weight:800"><?php echo $cntIoT===null?'—':$cntIoT; ?></div>
+    <div class="muted">Người dùng</div>
+    <div style="font-size:28px;font-weight:800"><?php echo $cntTen===null?'—':$cntTen; ?></div>
   </div>
+   <div class="card">
+    <div class="muted">Thuốc bảo vệ thực vật</div>
+    <div style="font-size:28px;font-weight:800"><?php echo $cntBvtv===null?'—':$cntBvtv; ?></div>
+  </div>
+   <div class="card">
+    <div class="muted">Thuốc bảo vệ thực vật</div>
+    <div style="font-size:28px;font-weight:800"><?php echo $cntPhan===null?'—':$cntPhan; ?></div>
+  </div>
+   <div class="card">
+    <div class="muted">Thuốc bảo vệ thực vật</div>
+    <div style="font-size:28px;font-weight:800"><?php echo $cntCanh===null?'—':$cntCanh; ?></div>
+  </div>
+   <div class="card">
+    <div class="muted">Thuốc bảo vệ thực vật</div>
+    <div style="font-size:28px;font-weight:800"><?php echo $cntMay===null?'—':$cntMay; ?></div>
+  </div>
+ 
 </div>
