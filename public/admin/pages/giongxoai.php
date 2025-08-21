@@ -1,7 +1,6 @@
 <?php
 require __DIR__ . '/../../connect.php'; // $conn
 ?>
-
 <?php
 // Tìm bảng tồn tại
 function findTable(mysqli $conn, array $candidates): ?string {
@@ -13,10 +12,10 @@ function findTable(mysqli $conn, array $candidates): ?string {
   return null;
 }
 
-$TABLE_HO = findTable($conn, ['ho_nong_dan','honongdan']);
-if (!$TABLE_HO) {
-  echo "<h1>👨‍🌾 Hộ nông dân</h1>";
-  echo "<div class='msg err' style='display:block'>Thiếu bảng <code>ho_nong_dan</code> hoặc <code>honongdan</code> trong CSDL <b>qlvtxoai</b>.</div>";
+$TABLE_GIONG = findTable($conn, ['giong_xoai','giongxoai']);
+if (!$TABLE_GIONG) {
+  echo "<h1>🥭 Giống xoài</h1>";
+  echo "<div class='msg err' style='display:block'>Thiếu bảng <code>giong_xoai</code> hoặc <code>giongxoai</code> trong CSDL <b>qlvtxoai</b>.</div>";
   return;
 }
 
@@ -27,21 +26,21 @@ $editData = null;
 // XỬ LÝ CÁC THAO TÁC
 switch ($action) {
   case 'delete':
-    $MaHo = trim($_GET['id'] ?? '');
-    if ($MaHo !== '') {
-      $stmt = $conn->prepare("DELETE FROM `$TABLE_HO` WHERE MaHo=?");
-      $stmt->bind_param("s", $MaHo);
+    $MaGiong = trim($_GET['id'] ?? '');
+    if ($MaGiong !== '') {
+      $stmt = $conn->prepare("DELETE FROM `$TABLE_GIONG` WHERE MaGiong=?");
+      $stmt->bind_param("s", $MaGiong);
       if (!$stmt->execute()) $err = "Không xóa được: ".$stmt->error;
-      else $msg = "Đã xóa hộ: $MaHo";
+      else $msg = "Đã xóa giống: $MaGiong";
       $stmt->close();
     }
     break;
     
   case 'edit':
-    $MaHo = trim($_GET['id'] ?? '');
-    if ($MaHo !== '') {
-      $stmt = $conn->prepare("SELECT * FROM `$TABLE_HO` WHERE MaHo=?");
-      $stmt->bind_param("s", $MaHo);
+    $MaGiong = trim($_GET['id'] ?? '');
+    if ($MaGiong !== '') {
+      $stmt = $conn->prepare("SELECT * FROM `$TABLE_GIONG` WHERE MaGiong=?");
+      $stmt->bind_param("s", $MaGiong);
       $stmt->execute();
       $result = $stmt->get_result();
       $editData = $result->fetch_assoc();
@@ -51,41 +50,37 @@ switch ($action) {
 }
 
 // XỬ LÝ FORM (THÊM/SỬA)
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['TenChuHo'])) {
-  $MaHo = trim($_POST['MaHo'] ?? '');
-  $TenChuHo = trim($_POST['TenChuHo'] ?? '');
-  $CCCD = trim($_POST['CCCD'] ?? '');
-  $NgaySinh = trim($_POST['NgaySinh'] ?? '') ?: null;
-  $SoDienThoai = trim($_POST['SoDienThoai'] ?? '') ?: null;
-  $DiaChi = trim($_POST['DiaChi'] ?? '') ?: null;
-  $SoThanhVien = (int)($_POST['SoThanhVien'] ?? 1);
-  $LoaiDat = trim($_POST['LoaiDat'] ?? '') ?: null;
-  $DienTich = floatval($_POST['DienTich'] ?? 0) ?: null;
-  $isEdit = !empty($MaHo);
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['TenGiong'])) {
+  $MaGiong = trim($_POST['MaGiong'] ?? '');
+  $TenGiong = trim($_POST['TenGiong'] ?? '');
+  $ThoiGianTruongThanh = trim($_POST['ThoiGianTruongThanh'] ?? '') ?: null;
+  $NangSuatTrungBinh = trim($_POST['NangSuatTrungBinh'] ?? '') ?: null;
+  $DacDiem = trim($_POST['DacDiem'] ?? '') ?: null;
+  $TinhTrang = trim($_POST['TinhTrang'] ?? 'Còn sử dụng');
+  $isEdit = !empty($MaGiong);
 
   // Validate
-  if ($TenChuHo === '') $err = 'Vui lòng nhập Tên chủ hộ';
-  elseif ($CCCD === '') $err = 'Vui lòng nhập CCCD';
+  if ($TenGiong === '') $err = 'Vui lòng nhập Tên giống';
   else {
     if ($isEdit) {
       // CẬP NHẬT
-      $sql = "UPDATE `$TABLE_HO` SET TenChuHo=?, CCCD=?, NgaySinh=?, SoDienThoai=?, DiaChi=?, SoThanhVien=?, LoaiDat=?, DienTich=? WHERE MaHo=?";
+      $sql = "UPDATE `$TABLE_GIONG` SET TenGiong=?, ThoiGianTruongThanh=?, NangSuatTrungBinh=?, DacDiem=?, TinhTrang=? WHERE MaGiong=?";
       $stmt = $conn->prepare($sql);
-      $stmt->bind_param("sssssisds", $TenChuHo, $CCCD, $NgaySinh, $SoDienThoai, $DiaChi, $SoThanhVien, $LoaiDat, $DienTich, $MaHo);
+      $stmt->bind_param("ssssss", $TenGiong, $ThoiGianTruongThanh, $NangSuatTrungBinh, $DacDiem, $TinhTrang, $MaGiong);
       if (!$stmt->execute()) $err = "Không cập nhật được: ".$stmt->error;
-      else $msg = "Đã cập nhật hộ: $TenChuHo";
+      else $msg = "Đã cập nhật giống: $TenGiong";
     } else {
-      // THÊM MỚI (auto-generate MaHo)
+      // THÊM MỚI (auto-generate MaGiong)
       do {
-        $MaHo = 'HO' . sprintf('%02d', rand(10, 99));
-        $check = $conn->query("SELECT MaHo FROM `$TABLE_HO` WHERE MaHo='$MaHo'");
+        $MaGiong = 'GO' . sprintf('%02d', rand(10, 99));
+        $check = $conn->query("SELECT MaGiong FROM `$TABLE_GIONG` WHERE MaGiong='$MaGiong'");
       } while ($check && $check->num_rows > 0);
       
-      $sql = "INSERT INTO `$TABLE_HO` (MaHo, TenChuHo, CCCD, NgaySinh, SoDienThoai, DiaChi, SoThanhVien, LoaiDat, DienTich) VALUES (?,?,?,?,?,?,?,?,?)";
+      $sql = "INSERT INTO `$TABLE_GIONG` (MaGiong, TenGiong, ThoiGianTruongThanh, NangSuatTrungBinh, DacDiem, TinhTrang) VALUES (?,?,?,?,?,?)";
       $stmt = $conn->prepare($sql);
-      $stmt->bind_param("sssssisds", $MaHo, $TenChuHo, $CCCD, $NgaySinh, $SoDienThoai, $DiaChi, $SoThanhVien, $LoaiDat, $DienTich);
+      $stmt->bind_param("ssssss", $MaGiong, $TenGiong, $ThoiGianTruongThanh, $NangSuatTrungBinh, $DacDiem, $TinhTrang);
       if (!$stmt->execute()) $err = "Không thêm được: ".$stmt->error;
-      else $msg = "Đã thêm hộ: $TenChuHo (Mã: $MaHo)";
+      else $msg = "Đã thêm giống: $TenGiong (Mã: $MaGiong)";
     }
     $stmt->close();
     if (!$err) $editData = null; // Reset form sau khi lưu thành công
@@ -99,7 +94,7 @@ $params = [];
 $types = '';
 
 if ($search !== '') {
-  $whereClause = "WHERE TenChuHo LIKE ? OR CCCD LIKE ? OR SoDienThoai LIKE ? OR DiaChi LIKE ?";
+  $whereClause = "WHERE TenGiong LIKE ? OR MaGiong LIKE ? OR DacDiem LIKE ? OR TinhTrang LIKE ?";
   $searchTerm = "%$search%";
   $params = [$searchTerm, $searchTerm, $searchTerm, $searchTerm];
   $types = 'ssss';
@@ -107,7 +102,7 @@ if ($search !== '') {
 
 // LẤY DANH SÁCH
 $list = [];
-$sql = "SELECT * FROM `$TABLE_HO` $whereClause ORDER BY NgayDangKy DESC, TenChuHo ASC LIMIT 200";
+$sql = "SELECT * FROM `$TABLE_GIONG` $whereClause ORDER BY TenGiong ASC LIMIT 200";
 
 if ($params) {
   $stmt = $conn->prepare($sql);
@@ -122,68 +117,50 @@ if ($params) {
 }
 ?>
 
-<h1>Quản lý Hộ nông dân</h1>
+<h1> Quản lý Giống xoài</h1>
 
 <?php if ($msg): ?><div class="msg" style="display:block"><?php echo htmlspecialchars($msg); ?></div><?php endif; ?>
 <?php if ($err): ?><div class="msg err" style="display:block"><?php echo htmlspecialchars($err); ?></div><?php endif; ?>
 
 <!-- FORM THÊM/SỬA -->
 <div class="card">
-  <h3><?php echo $editData ? 'Chỉnh sửa hộ nông dân' : 'Thêm hộ nông dân mới'; ?></h3>
+  <h3><?php echo $editData ? 'Chỉnh sửa giống xoài' : 'Thêm giống xoài mới'; ?></h3>
   <form method="post" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px; padding:8px 0">
     
     <?php if ($editData): ?>
-      <input type="hidden" name="MaHo" value="<?php echo htmlspecialchars($editData['MaHo']); ?>">
+      <input type="hidden" name="MaGiong" value="<?php echo htmlspecialchars($editData['MaGiong']); ?>">
       <div style="grid-column:1/-1; background:#f5f5f5; padding:8px 12px; border-radius:4px">
-        <strong>Mã hộ:</strong> <?php echo htmlspecialchars($editData['MaHo']); ?>
-        <span class="muted">| Đăng ký: <?php echo $editData['NgayDangKy']; ?></span>
+        <strong>Mã giống:</strong> <?php echo htmlspecialchars($editData['MaGiong']); ?>
       </div>
     <?php endif; ?>
 
     <div>
-      <label><strong>Tên chủ hộ *</strong></label>
-      <input name="TenChuHo" required value="<?php echo htmlspecialchars($editData['TenChuHo'] ?? ''); ?>">
+      <label><strong>Tên giống *</strong></label>
+      <input name="TenGiong" required value="<?php echo htmlspecialchars($editData['TenGiong'] ?? ''); ?>">
     </div>
 
     <div>
-      <label><strong>CCCD *</strong></label>
-      <input name="CCCD" required value="<?php echo htmlspecialchars($editData['CCCD'] ?? ''); ?>">
+      <label><strong>Thời gian trưởng thành</strong></label>
+      <input name="ThoiGianTruongThanh" value="<?php echo htmlspecialchars($editData['ThoiGianTruongThanh'] ?? ''); ?>" placeholder="VD: 12 tháng">
     </div>
 
     <div>
-      <label><strong>Ngày sinh</strong></label>
-      <input type="date" name="NgaySinh" value="<?php echo htmlspecialchars($editData['NgaySinh'] ?? ''); ?>">
+      <label><strong>Năng suất trung bình</strong></label>
+      <input name="NangSuatTrungBinh" value="<?php echo htmlspecialchars($editData['NangSuatTrungBinh'] ?? ''); ?>" placeholder="VD: 100 kg">
     </div>
 
     <div>
-      <label><strong>Số điện thoại</strong></label>
-      <input name="SoDienThoai" value="<?php echo htmlspecialchars($editData['SoDienThoai'] ?? ''); ?>">
-    </div>
-
-    <div style="grid-column:1/-1">
-      <label><strong>Địa chỉ</strong></label>
-      <input name="DiaChi" style="width:100%" value="<?php echo htmlspecialchars($editData['DiaChi'] ?? ''); ?>">
-    </div>
-
-    <div>
-      <label><strong>Số thành viên</strong></label>
-      <input type="number" name="SoThanhVien" min="1" value="<?php echo $editData['SoThanhVien'] ?? 1; ?>">
-    </div>
-
-    <div>
-      <label><strong>Loại đất</strong></label>
-      <select name="LoaiDat">
-        <option value="">-- Chọn loại đất --</option>
-        <option <?php echo ($editData['LoaiDat']??'') === 'Phù Sa' ? 'selected' : ''; ?>>Phù Sa</option>
-        <option <?php echo ($editData['LoaiDat']??'') === 'Đồng ruộng' ? 'selected' : ''; ?>>Đồng ruộng</option>
-        <option <?php echo ($editData['LoaiDat']??'') === 'Đất vườn' ? 'selected' : ''; ?>>Đất vườn</option>
-        <option <?php echo ($editData['LoaiDat']??'') === 'Đất thổ cư' ? 'selected' : ''; ?>>Đất thổ cư</option>
+      <label><strong>Tình trạng</strong></label>
+      <select name="TinhTrang">
+        <option value="Còn sử dụng" <?php echo ($editData['TinhTrang']??'Còn sử dụng') === 'Còn sử dụng' ? 'selected' : ''; ?>>Còn sử dụng</option>
+        <option value="Tạm ngưng" <?php echo ($editData['TinhTrang']??'') === 'Tạm ngưng' ? 'selected' : ''; ?>>Tạm ngưng</option>
+        <option value="Ngưng hoàn toàn" <?php echo ($editData['TinhTrang']??'') === 'Ngưng hoàn toàn' ? 'selected' : ''; ?>>Ngưng hoàn toàn</option>
       </select>
     </div>
 
-    <div>
-      <label><strong>Diện tích (m²)</strong></label>
-      <input type="number" name="DienTich" step="0.1" min="0" value="<?php echo $editData['DienTich'] ?? ''; ?>">
+    <div style="grid-column:1/-1">
+      <label><strong>Đặc điểm</strong></label>
+      <textarea name="DacDiem" style="width:100%; min-height:80px" placeholder="Mô tả đặc điểm của giống xoài..."><?php echo htmlspecialchars($editData['DacDiem'] ?? ''); ?></textarea>
     </div>
 
     <div style="grid-column:1/-1; display:flex; gap:12px; margin-top:8px">
@@ -191,7 +168,7 @@ if ($params) {
         <?php echo $editData ? 'Cập nhật' : 'Thêm mới'; ?>
       </button>
       <?php if ($editData): ?>
-        <a href="index.php?p=honongdan" class="btn" style="background:#999">Hủy</a>
+        <a href="index.php?p=giongxoai" class="btn" style="background:#999">Hủy</a>
       <?php endif; ?>
     </div>
   </form>
@@ -200,12 +177,12 @@ if ($params) {
 <!-- TÌM KIẾM -->
 <div class="card">
   <form method="get" class="toolbar">
-    <input type="hidden" name="p" value="honongdan">
-    <input name="search" placeholder="Tìm theo tên, CCCD, SĐT, địa chỉ..." 
+    <input type="hidden" name="p" value="giongxoai">
+    <input name="search" placeholder="Tìm theo tên giống, mã giống, đặc điểm..." 
            value="<?php echo htmlspecialchars($search); ?>" style="min-width:300px">
     <button class="btn">Tìm kiếm</button>
     <?php if ($search): ?>
-      <a href="index.php?p=honongdan" class="btn" style="background:#999">Xóa lọc</a>
+      <a href="index.php?p=giongxoai" class="btn" style="background:#999">Xóa lọc</a>
     <?php endif; ?>
   </form>
 </div>
@@ -213,53 +190,56 @@ if ($params) {
 <!-- DANH SÁCH -->
 <div class="card">
   <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px">
-    <h3>📋 Danh sách hộ nông dân</h3>
-    <span class="muted">Tổng: <strong><?php echo count($list); ?></strong> hộ</span>
+    <h3>📋 Danh sách giống xoài</h3>
+    <span class="muted">Tổng: <strong><?php echo count($list); ?></strong> giống</span>
   </div>
   
   <div style="overflow:auto">
     <table>
       <thead>
         <tr>
-          <th>Mã hộ</th>
-          <th>Tên chủ hộ</th>
-          <th>CCCD</th>
-          <th>SĐT</th>
-          <th>Địa chỉ</th>
-          <th>Thành viên</th>
-          <th>Loại đất</th>
-          <th>Diện tích</th>
-          <th>Ngày ĐK</th>
+          <th>Mã giống</th>
+          <th>Tên giống</th>
+          <th>Thời gian trưởng thành</th>
+          <th>Năng suất TB</th>
+          <th>Đặc điểm</th>
+          <th>Tình trạng</th>
           <th width="100">Thao tác</th>
         </tr>
       </thead>
       <tbody>
         <?php if (!$list): ?>
-          <tr><td colspan="10" class="muted" style="text-align:center; padding:40px">
+          <tr><td colspan="7" class="muted" style="text-align:center; padding:40px">
             <?php echo $search ? "Không tìm thấy kết quả cho: \"$search\"" : "Chưa có dữ liệu"; ?>
           </td></tr>
         <?php else: foreach($list as $r): ?>
           <tr>
-            <td><strong><?php echo htmlspecialchars($r['MaHo']); ?></strong></td>
-            <td><?php echo htmlspecialchars($r['TenChuHo']); ?></td>
-            <td><?php echo htmlspecialchars($r['CCCD']); ?></td>
-            <td><?php echo htmlspecialchars($r['SoDienThoai'] ?? '-'); ?></td>
-            <td title="<?php echo htmlspecialchars($r['DiaChi'] ?? ''); ?>">
-              <?php echo htmlspecialchars(mb_strimwidth($r['DiaChi'] ?? '-', 0, 30, '...')); ?>
+            <td><strong><?php echo htmlspecialchars($r['MaGiong']); ?></strong></td>
+            <td><?php echo htmlspecialchars($r['TenGiong']); ?></td>
+            <td><?php echo htmlspecialchars($r['ThoiGianTruongThanh'] ?? '-'); ?></td>
+            <td><?php echo htmlspecialchars($r['NangSuatTrungBinh'] ?? '-'); ?></td>
+            <td title="<?php echo htmlspecialchars($r['DacDiem'] ?? ''); ?>">
+              <?php echo htmlspecialchars(mb_strimwidth($r['DacDiem'] ?? '-', 0, 50, '...')); ?>
             </td>
-            <td style="text-align:center"><?php echo $r['SoThanhVien']; ?></td>
-            <td><?php echo htmlspecialchars($r['LoaiDat'] ?? '-'); ?></td>
-            <td style="text-align:right">
-              <?php echo $r['DienTich'] ? number_format($r['DienTich'], 1) . ' m²' : '-'; ?>
+            <td>
+              <span class="badge <?php 
+                echo match($r['TinhTrang']) {
+                  'Còn sử dụng' => 'badge-success',
+                  'Tạm ngưng' => 'badge-warning', 
+                  'Ngưng hoàn toàn' => 'badge-danger',
+                  default => ''
+                };
+              ?>">
+                <?php echo htmlspecialchars($r['TinhTrang']); ?>
+              </span>
             </td>
-            <td><?php echo $r['NgayDangKy']; ?></td>
             <td>
               <div style="display:flex; gap:2px">
-                <a href="index.php?p=honongdan&action=edit&id=<?php echo urlencode($r['MaHo']); ?>"
+                <a href="index.php?p=giongxoai&action=edit&id=<?php echo urlencode($r['MaGiong']); ?>"
                    class="btn" style="padding:2px 6px; font-size:11px" title="Chỉnh sửa">✏️</a>
-                <a href="index.php?p=honongdan&action=delete&id=<?php echo urlencode($r['MaHo']); ?>"
+                <a href="index.php?p=giongxoai&action=delete&id=<?php echo urlencode($r['MaGiong']); ?>"
                    class="btn danger" style="padding:2px 6px; font-size:11px" title="Xóa"
-                   data-confirm="Xóa hộ '<?php echo htmlspecialchars($r['TenChuHo']); ?>' không thể khôi phục?">🗑️</a>
+                   data-confirm="Xóa giống '<?php echo htmlspecialchars($r['TenGiong']); ?>' không thể khôi phục?">🗑️</a>
               </div>
             </td>
           </tr>
@@ -268,8 +248,8 @@ if ($params) {
     </table>
   </div>
 </div>
+
 <style>
-  
 /* ===== Palette & base ===== */
 :root{
   --bg: #f7f3ee;          /* nền be nhạt */
@@ -392,6 +372,7 @@ body{
   cursor: pointer;
   transition: transform .06s ease, background .2s ease, box-shadow .2s ease, opacity .2s ease;
   box-shadow: 0 6px 14px rgba(127,106,85,.16);
+  text-decoration: none;
 }
 .btn:hover{ background: var(--primary-2); }
 .btn:active{ transform: translateY(1px); }
@@ -405,8 +386,14 @@ body{
   background: var(--accent);
   border-color: var(--accent);
 }
+.btn.danger{
+  background: #dc3545;
+}
+.btn.danger:hover{
+  background: #c82333;
+}
 
-/* Nhãn/huý hiệu nhỏ */
+/* Nhãn/huy hiệu nhỏ */
 .badge{
   display: inline-block;
   padding: 4px 10px;
@@ -415,6 +402,21 @@ body{
   color: var(--primary);
   font-size: 12px;
   border: 1px solid var(--line);
+}
+.badge-success{
+  background: #d4edda;
+  color: #155724;
+  border-color: #c3e6cb;
+}
+.badge-warning{
+  background: #fff3cd;
+  color: #856404;
+  border-color: #ffeaa7;
+}
+.badge-danger{
+  background: #f8d7da;
+  color: #721c24;
+  border-color: #f5c6cb;
 }
 
 /* ===== Ô tìm kiếm nhanh ===== */
@@ -430,6 +432,14 @@ body{
 #q:focus{
   border-color: var(--primary-2);
   box-shadow: 0 0 0 4px rgba(160,137,111,.12);
+}
+
+/* Toolbar */
+.toolbar{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 /* ===== Bảng dữ liệu ===== */
@@ -465,20 +475,16 @@ table td.actions{
 }
 
 /* ===== Thông báo ngắn ===== */
-#msg{
+.msg{
   margin: 8px 0;
   padding: 10px 12px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--line);
-  background: #fff;
-  color: var(--muted);
-}
-#msg.success{
   background: #edf7ef;
   border-color: #cfe7d2;
   color: #216c35;
 }
-#msg.error{
+.msg.err{
   background: #fff1f0;
   border-color: #ffd6d2;
   color: #b42318;
@@ -491,6 +497,7 @@ table td.actions{
 .mb-0{ margin-bottom: 0 !important; }
 .mb-8{ margin-bottom: 8px !important; }
 .mb-12{ margin-bottom: 12px !important; }
+.muted{ color: var(--muted); }
 
 /* ===== Cuộn nhẹ nhàng (nếu có anchor) ===== */
 html{ scroll-behavior: smooth; }
@@ -501,7 +508,6 @@ html{ scroll-behavior: smooth; }
   padding: 0 28px;
 }
 </style>
-
 
 <script>
 // Xác nhận xóa

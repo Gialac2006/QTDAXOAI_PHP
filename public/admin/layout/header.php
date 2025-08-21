@@ -57,7 +57,19 @@ $who  = htmlspecialchars($user['HoTen'] ?? $user['TenDangNhap'] ?? 'Admin');
     <aside class="side">
       <ul class="menu">
         <li><a href="index.php?p=dashboard" class="<?php echo $page==='dashboard'?'active':''; ?>">📊 Tổng quan</a></li>
-        <li><a href="index.php?p=honongdan" class="<?php echo $page==='honongdan'?'active':''; ?>">👨‍🌾 Hộ nông dân</a></li>
+        <li><a href="index.php?p=honongdan" class="<?php echo $page==='honongdan'?'active':''; ?>">Hộ nông dân</a></li>
+        <li><a href="index.php?p=giongxoai" class="<?php echo $page==='giongxoai'?'active':''; ?>">Giống xoài</a></li>
+        <li><a href="index.php?p=vungtrong" class="<?php echo $page==='vungtrong'?'active':''; ?>">Vùng trồng</a></li>
+        <li><a href="index.php?p=nguoidung" class="<?php echo $page==='nguoidung'?'active':''; ?>">Người dùng</a></li>
+        <li><a href="index.php?p=thuocbvtv" class="<?php echo $page==='thuocbvtv'?'active':''; ?>">Thuốc bảo vệ thực vật</a></li>
+        <li><a href="index.php?p=phanbon" class="<?php echo $page==='phanbon'?'active':''; ?>"> Phân bón</a></li>
+        <li><a href="index.php?p=canhtac" class="<?php echo $page==='canhtac'?'active':''; ?>"> Canh tác</a></li>
+
+
+
+
+
+
       </ul>
     </aside>
     <main class="container">
