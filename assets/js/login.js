@@ -1,8 +1,7 @@
-// ==== CẤU HÌNH ĐƯỜNG DẪN ====
-const ROOT = '/QTDAXOAI_PHP';
+// ==== API tương đối (không lệ thuộc /nhom14) ====
 const API = {
-  login:    `${location.origin}${ROOT}/public/login.php`,
-  register: `${location.origin}${ROOT}/public/register.php`,
+  login:    'public/login.php',
+  register: 'public/register.php',
 };
 
 // ==== TAB ====
@@ -16,79 +15,54 @@ function showTab(tab) {
   document.getElementById('register-message').innerText = "";
 }
 
-// ==== XOÀI BAY (giữ nguyên) ====
-function randomInt(a,b){ return Math.floor(Math.random()*(b-a+1))+a; }
-function createMango(i){
-  const mango=document.createElement('span');
-  mango.innerText='🥭';
-  const size=randomInt(34,60);
-  mango.style.position='fixed';
-  mango.style.top=randomInt(5,70)+'vh';
-  mango.style.left='-70px';
-  mango.style.fontSize=size+'px';
-  mango.style.color=['#fcc419','#fe912c','#42c77a','#e2a72a','#a9c812'][i%5];
-  mango.style.zIndex=1; mango.style.pointerEvents='none';
-  mango.className='flying-mango';
-  (document.getElementById('mango-container')||document.body).appendChild(mango);
-  function animate(){
-    const duration=randomInt(18,20);
-    mango.style.top=randomInt(5,70)+'vh';
-    mango.style.transition=`left ${duration}s linear, top 3s ease`;
-    mango.style.left='110vw';
-    setTimeout(()=>{
-      mango.style.transition='none';
-      mango.style.left='-70px';
-      mango.style.top=randomInt(5,70)+'vh';
-      setTimeout(animate,100);
-    }, duration*1000);
-  }
-  setTimeout(animate, randomInt(0,5000));
-}
-for(let i=0;i<10;i++) createMango(i);
-
 // ==== ĐĂNG NHẬP ====
-document.getElementById('login-form').onsubmit = async (e)=>{
+document.getElementById('login-form').onsubmit = async (e) => {
   e.preventDefault();
   const username = document.getElementById('login-username').value.trim();
   const password = document.getElementById('login-password').value;
   const msg = document.getElementById('login-message');
-  msg.style.color = '#0a8'; msg.textContent='Đang đăng nhập…';
+  msg.style.color = '#0a8'; msg.textContent = 'Đang đăng nhập…';
 
-  try{
-    const res = await fetch(API.login, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      credentials:'include',
+  try {
+    const res  = await fetch(API.login, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ TenDangNhap: username, MatKhau: password })
     });
-    const data = await res.json();
-    if(!data.success) throw new Error(data.error || data.message || 'Đăng nhập thất bại');
 
-    // lưu & chuyển trang
+    // Nếu server trả non-JSON (lỗi PHP) -> hiện thô cho dễ debug
+    const text = await res.text();
+    let data; try { data = JSON.parse(text); } catch { throw new Error(text || 'Lỗi phản hồi'); }
+
+if (data.success) {
+  const role = (data.user?.VaiTro || '').toLowerCase();
+  location.href = role === 'admin'
+    ? 'public/admin/index.php?p=dashboard'
+    : 'home.html';
+}
+
     localStorage.setItem('auth_token', data.token || '');
-    localStorage.setItem('auth_user', JSON.stringify(data.user||{}));
+    localStorage.setItem('auth_user', JSON.stringify(data.user || {}));
+
     msg.style.color = 'green';
     msg.textContent = 'Đăng nhập thành công! Đang chuyển…';
 
-const ROOT = '/QTDAXOAI_PHP';
-const APP  = `${ROOT}/public`;
+    const role = String(data.user?.VaiTro || '').trim().toLowerCase();
+    // chuyển trang bằng đường dẫn tương đối (khỏi lo prefix /nhom14)
+    setTimeout(() => {
+      location.href = (role === 'admin')
+        ? 'public/admin/index.php?p=dashboard'
+        : 'home.html';
+    }, 600);
 
-setTimeout(() => {
-  const role = String(data.user?.VaiTro || '').trim().toLowerCase();
-  location.href = (role === 'admin')
-    ? `${APP}/admin/index.php?p=dashboard`
-    : `${ROOT}/home.html`;   // <-- ngoài public
-}, 900);
-
-
-  }catch(err){
-    msg.style.color='red';
+  } catch (err) {
+    msg.style.color = 'red';
     msg.textContent = err.message || 'Có lỗi xảy ra';
   }
 };
 
 // ==== ĐĂNG KÝ ====
-document.getElementById('register-form').onsubmit = async (e)=>{
+document.getElementById('register-form').onsubmit = async (e) => {
   e.preventDefault();
   const username = document.getElementById('reg-username').value.trim();
   const email    = document.getElementById('reg-email').value.trim();
@@ -96,36 +70,38 @@ document.getElementById('register-form').onsubmit = async (e)=>{
   const repass   = document.getElementById('reg-repassword').value;
   const msg = document.getElementById('register-message');
 
-  if(password !== repass){
+  if (password !== repass) {
     msg.style.color='red'; msg.textContent='Mật khẩu nhập lại không khớp'; return;
   }
 
   msg.style.color='#0a8'; msg.textContent='Đang tạo tài khoản…';
 
-  try{
-    const res = await fetch(API.register, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      credentials:'include',
+  try {
+    const res  = await fetch(API.register, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         TenDangNhap: username,
         MatKhau: password,
-        HoTen: username,   // nếu chưa có input họ tên, tạm dùng username
+        HoTen: username,
         Email: email,
         VaiTro: 'User'
       })
     });
-    const data = await res.json();
-    if(!data.success) throw new Error(data.error || data.message || 'Đăng ký thất bại');
+
+    const text = await res.text();
+    let data; try { data = JSON.parse(text); } catch { throw new Error(text || 'Lỗi phản hồi'); }
+    if (!data.success) throw new Error(data.error || data.message || 'Đăng ký thất bại');
 
     msg.style.color='green';
     msg.textContent='Đăng ký thành công! Bạn có thể đăng nhập.';
-    setTimeout(()=>{
+    setTimeout(() => {
       showTab('login');
       document.getElementById('login-username').value = username;
       document.getElementById('login-password').value = password;
-    }, 800);
-  }catch(err){
+    }, 700);
+
+  } catch (err) {
     msg.style.color='red';
     msg.textContent = err.message || 'Có lỗi xảy ra';
   }

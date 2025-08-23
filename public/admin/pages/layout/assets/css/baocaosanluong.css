@@ -1,0 +1,204 @@
+/* ==== Palette + base (tự động dùng cho trang báo cáo) ==== */
+:root{
+  --bg:#f7f3ee; --card:#fff; --text:#2b2b2b; --muted:#6b6b6b;
+  --line:#ece7e1; --primary:#7f6a55; --primary-2:#a0896f;
+  --accent:#e9dfd5; --radius:14px; --radius-sm:10px;
+  --shadow:0 6px 18px rgba(34,25,16,.06);
+  /* Màu riêng cho báo cáo */
+  --success:#16a34a; --success-light:#dcfce7;
+  --warning:#f59e0b; --warning-light:#fef3c7;
+  --info:#0ea5e9; --info-light:#e0f2fe;
+}
+
+*{ box-sizing:border-box }
+html,body{ margin:0; color:var(--text); background:radial-gradient(1200px 800px at 10% 0%, #fbf8f5 0%, var(--bg) 60%), var(--bg) }
+/* Heading cùng màu với các trang khác */
+h1{ margin:0 0 16px; color:var(--primary); font-weight:800; letter-spacing:.2px }
+
+.muted{ color:var(--muted) }
+.container{ width:95%; max-width:1600px; margin:32px auto; padding:0 28px }
+
+.card{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+  padding:16px; box-shadow:var(--shadow); margin-bottom:16px;
+}
+.card h3{ margin:0 0 10px; font-size:18px; color:var(--primary); font-weight:700 }
+
+label{ display:block; margin:4px 0 6px; font-size:13px; color:var(--muted) }
+input, select, textarea{
+  width:100%; padding:10px 12px; border:1px solid var(--line);
+  border-radius:var(--radius-sm); background:#fff; font-size:14px; outline:none;
+}
+textarea{ min-height:96px; resize:vertical }
+input:focus, select:focus, textarea:focus{
+  border-color:var(--primary-2); box-shadow:0 0 0 4px rgba(160,137,111,.12);
+}
+
+/* Input số với style đặc biệt */
+input[type="number"] {
+  text-align: right;
+  font-weight: 600;
+}
+
+/* Khoảng cách gọn như trang Hộ nông dân */
+.row{ display:flex; gap:12px; flex-wrap:wrap; align-items:flex-start }
+.form-3col{ gap:16px 20px }
+.form-3col > .col{ flex:1 1 320px; min-width:320px }
+.form-3col > .full{ flex:1 1 100%; min-width:100% }
+@media (max-width:900px){ .form-3col > .col{ flex-basis:100%; min-width:auto } }
+
+.toolbar{ display:flex; gap:10px; flex-wrap:wrap; align-items:center }
+
+.btn{
+  display:inline-flex; align-items:center; gap:8px; padding:10px 16px;
+  border-radius:999px; border:1px solid transparent;
+  background:var(--primary); color:#fff; font-weight:600; font-size:14px;
+  cursor:pointer; transition:.15s; box-shadow:0 6px 14px rgba(127,106,85,.16);
+  text-decoration:none
+}
+.btn:hover{ background:var(--primary-2) }
+.btn.secondary{ background:#fff; color:var(--primary); border-color:var(--line); box-shadow:none }
+.btn.secondary:hover{ background:var(--accent); border-color:var(--accent) }
+.btn.icon{ padding:6px 10px; font-size:12px }
+.btn.danger{ background:#b42318 } .btn.danger:hover{ background:#942012 }
+.btn.success{ background:var(--success) } .btn.success:hover{ background:#15803d }
+
+.msg{ margin:8px 0; padding:10px 12px; border-radius:var(--radius-sm);
+  border:1px solid var(--line); background:#edf7ef; border-color:#cfe7d2; color:#216c35 }
+.msg.err{ background:#fff1f0; border-color:#ffd6d2; color:#b42318 }
+
+/* Table */
+.table-wrap{ background:#fff; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow) }
+table{ width:100%; border-collapse:collapse; font-size:14px }
+th,td{ padding:10px 12px; border-bottom:1px solid var(--line) }
+th{ text-align:left; font-weight:700; color:var(--primary);
+    background:linear-gradient(180deg,#fbf8f5 0%,#f4eee7 100%) }
+tr:hover td{ background:#faf6f1 }
+td.actions{ white-space:nowrap; display:flex; gap:6px; align-items:center }
+
+/* Căn phải cho cột số */
+.number-cell {
+  text-align: right;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+/* Badge chất lượng */
+.badge{
+  display:inline-block; padding:4px 10px; border-radius:999px;
+  font-size:12px; border:1px solid var(--line); font-weight:600;
+}
+.badge.loai1{ background:var(--success-light); color:var(--success); border-color:var(--success) }
+.badge.loai2{ background:var(--warning-light); color:var(--warning); border-color:var(--warning) }
+.badge.loai3{ background:var(--info-light); color:var(--info); border-color:var(--info) }
+.badge.admin{ background:#ffe4e1; color:#d63031 }
+.badge.user{  background:#e9f3ff; color:#0984e3 }
+
+/* Thống kê nhanh */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.stat-card .stat-number {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 4px;
+}
+
+.stat-card .stat-label {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Tooltip cho ghi chú dài */
+.tooltip {
+  position: relative;
+  cursor: help;
+}
+
+.tooltip:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.9);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 1000;
+  max-width: 300px;
+  white-space: normal;
+}
+
+.tooltip:hover::before {
+  content: '';
+  position: absolute;
+  bottom: 95%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: rgba(0,0,0,0.9);
+  z-index: 1000;
+}
+
+/* Loading state */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Form validation */
+.field-error {
+  border-color: #dc2626 !important;
+  box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1) !important;
+}
+
+.error-message {
+  color: #dc2626;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .toolbar input,
+  .toolbar select,
+  .toolbar button {
+    width: 100%;
+    min-width: auto !important;
+  }
+  
+  .table-wrap {
+    overflow-x: auto;
+  }
+  
+  table {
+    min-width: 700px;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}

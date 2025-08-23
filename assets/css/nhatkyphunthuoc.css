@@ -1,0 +1,363 @@
+/* CSS cho trang nhật ký phun thuốc */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 30%, #a5d6a7 70%, #81c784 100%);
+    min-height: 100vh;
+}
+
+.spray-header {
+    background: linear-gradient(rgba(76,175,80,0.8), rgba(67,160,71,0.8)), 
+                url('assets/img/spray-background.jpg') center/cover;
+    color: white;
+    padding: 100px 0 60px;
+    text-align: center;
+    margin-bottom: 40px;
+    border-bottom: 5px solid #4caf50;
+}
+
+.spray-header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    margin-bottom: 20px;
+}
+
+.spray-header p {
+    font-size: 1.2rem;
+    margin-bottom: 0;
+}
+
+.stats-section {
+    background: rgba(255,255,255,0.95);
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 40px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(76, 175, 80, 0.1);
+}
+
+.stat-item {
+    margin: 0 20px;
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #4caf50;
+    display: block;
+    text-shadow: 2px 2px 4px rgba(76, 175, 80, 0.3);
+}
+
+.stat-label {
+    color: #7f8c8d;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.search-box {
+    background: rgba(255,255,255,0.95);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 25px rgba(76, 175, 80, 0.1);
+}
+
+.search-input {
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    border-color: #4caf50;
+    box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
+}
+
+/* Person Section Styles */
+.person-spray-section {
+    margin-bottom: 50px;
+}
+
+.person-header {
+    background: linear-gradient(135deg, #4caf50, #43a047);
+    color: white;
+    padding: 20px 30px;
+    border-radius: 15px 15px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+}
+
+.person-info h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.spray-count {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-left: 15px;
+}
+
+.person-stats {
+    display: flex;
+    gap: 15px;
+}
+
+.stat-badge {
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-badge.recent {
+    background: rgba(255, 193, 7, 0.2);
+    color: #ffc107;
+    border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.stat-badge.total {
+    background: rgba(33, 150, 243, 0.2);
+    color: #2196f3;
+    border: 1px solid rgba(33, 150, 243, 0.3);
+}
+
+/* Spray Cards */
+.spray-cards {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 0 0 15px 15px;
+    box-shadow: 0 10px 25px rgba(76, 175, 80, 0.1);
+}
+
+.spray-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border-left: 5px solid #4caf50;
+    display: flex;
+    gap: 20px;
+}
+
+.spray-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(76, 175, 80, 0.15);
+}
+
+.spray-date {
+    flex-shrink: 0;
+}
+
+.date-circle {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(45deg, #4caf50, #43a047);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+}
+
+.date-circle .day {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.date-circle .month {
+    font-size: 0.7rem;
+    opacity: 0.9;
+}
+
+.spray-content {
+    flex: 1;
+}
+
+.spray-medicine {
+    color: #2c3e50;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    line-height: 1.3;
+}
+
+.spray-details {
+    margin-bottom: 20px;
+}
+
+.detail-row {
+    color: #34495e;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+}
+
+.detail-row i {
+    width: 20px;
+    color: #4caf50;
+    margin-right: 10px;
+    font-size: 0.9rem;
+}
+
+.note-text {
+    font-style: italic;
+    color: #7f8c8d;
+    line-height: 1.4;
+}
+
+.spray-type {
+    text-align: right;
+}
+
+.medicine-badge {
+    padding: 10px 16px;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.medicine-badge.type-insect {
+    background: linear-gradient(45deg, #ff5722, #f44336);
+    color: white;
+    box-shadow: 0 3px 10px rgba(255, 87, 34, 0.3);
+}
+
+.medicine-badge.type-disease {
+    background: linear-gradient(45deg, #2196f3, #1976d2);
+    color: white;
+    box-shadow: 0 3px 10px rgba(33, 150, 243, 0.3);
+}
+
+.medicine-badge.type-growth {
+    background: linear-gradient(45deg, #4caf50, #43a047);
+    color: white;
+    box-shadow: 0 3px 10px rgba(76, 175, 80, 0.3);
+}
+
+.medicine-badge.type-pest {
+    background: linear-gradient(45deg, #9c27b0, #7b1fa2);
+    color: white;
+    box-shadow: 0 3px 10px rgba(156, 39, 176, 0.3);
+}
+
+.medicine-badge.type-default {
+    background: linear-gradient(45deg, #9e9e9e, #757575);
+    color: white;
+    box-shadow: 0 3px 10px rgba(158, 158, 158, 0.3);
+}
+
+.no-spray {
+    text-align: center;
+    padding: 60px 20px;
+    color: #7f8c8d;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    margin: 20px 0;
+}
+
+.no-spray i {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    color: #bdc3c7;
+}
+
+.no-spray h3 {
+    color: #34495e;
+    margin-bottom: 15px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .spray-header h1 {
+        font-size: 2rem;
+    }
+    
+    .person-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .person-stats {
+        justify-content: center;
+    }
+    
+    .spray-card {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .date-circle {
+        align-self: center;
+        width: 60px;
+        height: 60px;
+    }
+    
+    .spray-type {
+        text-align: center;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
+    
+    .search-box .row {
+        row-gap: 15px;
+    }
+}
+
+/* Animation for cards */
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.spray-item {
+    animation: fadeInLeft 0.6s ease forwards;
+}
+
+/* Loading state */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.loading .spray-card {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}

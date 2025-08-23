@@ -9,7 +9,7 @@ if (ini_get("session.use_cookies")) {
 session_destroy();
 
 // Nếu gọi bằng link (GET) -> redirect về trang login
-$redirect = $_GET['redirect'] ?? '/QTDAXOAI_PHP/public/login.html';
+$redirect = $_GET['redirect'] ?? 'nhom14/QTDAXOAI_PHP/public/login.html';
 if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'GET') {
   header("Location: $redirect", true, 302);
   exit;

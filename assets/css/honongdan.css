@@ -1,0 +1,151 @@
+/* Extracted from honongdan.php - combined CSS */
+body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #a8d5ba 0%, #c8e6c9 30%, #fff9c4 70%, #f0f4c3 100%);
+            min-height: 100vh;
+        }
+
+        .farmer-header {
+            background: linear-gradient(rgba(255,140,0,0.7), rgba(255,165,0,0.7)), 
+                        url('assets/img/xoai-background.jpg') center/cover;
+            color: white;
+            padding: 100px 0 60px;
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 5px solid #ff8c00;
+        }
+
+        .farmer-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 20px;
+        }
+
+        .farmer-header p {
+            font-size: 1.2rem;
+            margin-bottom: 0;
+        }
+
+        .farmer-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(255, 140, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 165, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .farmer-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(255, 140, 0, 0.2);
+            border-color: rgba(255, 165, 0, 0.4);
+        }
+
+        .farmer-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, #81c784, #aed581, #dcedc8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2e7d32;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 25px rgba(129, 199, 132, 0.3);
+            border: 3px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .farmer-name {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .farmer-info {
+            color: #34495e;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .farmer-info i {
+            width: 25px;
+            color: #689f38;
+            margin-right: 10px;
+        }
+
+        .stats-section {
+            background: rgba(255,255,255,0.9);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .stat-item {
+            margin: 0 20px;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #ff8c00;
+            display: block;
+            text-shadow: 2px 2px 4px rgba(255, 140, 0, 0.3);
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .search-box {
+            background: rgba(255,255,255,0.9);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .search-input {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 12px 20px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #ff8c00;
+            box-shadow: 0 0 0 0.2rem rgba(255, 140, 0, 0.25);
+        }
+
+        .badge-custom {
+            background: linear-gradient(45deg, #ff8c00, #ffa500);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: 0 3px 10px rgba(255, 140, 0, 0.3);
+        }
+
+        .no-farmers {
+            text-align: center;
+            padding: 60px 20px;
+            color: #7f8c8d;
+        }
+
+        .no-farmers i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #bdc3c7;
+        }
