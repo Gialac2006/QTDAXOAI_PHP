@@ -28,6 +28,7 @@ $cntThoitiet = safeCount($conn, ['thoitiet','thoi_tiet']);
 $cntBaotri = safeCount($conn, ['lichbaotri','lich_bao_tri']);
 $cntBaocao = safeCount($conn, ['baocaosanluong','bao_cao_san_luong']);
 $cntBando = safeCount($conn, ['bandogis','ban_do_gis']);
+$cntGiaxoai = safeCount($conn, ['giaxoai','gia_xoai']);
 
 
 
@@ -46,6 +47,8 @@ if ($cntThoitiet === null) $missing[] = 'thoitiet/thoi_tiet';
 if ($cntBaotri === null) $missing[] = 'lichbaotri/lich_bao_tri';
 if ($cntBaocao === null) $missing[] = 'baocaosanluong/bao_cao_san_luong';
 if ($cntBando === null) $missing[] = 'bandogis/ban_do_gis';
+if ($cntGiaxoai=== null) $missing[] = 'giaxoai/gia_xoai';
+
 
 
 
@@ -115,5 +118,9 @@ if ($cntBando === null) $missing[] = 'bandogis/ban_do_gis';
   <div class="card">
     <div class="muted">Bản đồ gis</div>
     <div style="font-size:28px;font-weight:800"><?php echo $cntBando===null?'—':$cntBando; ?></div>
+  </div>
+  <div class="card">
+    <div class="muted">Giá xoài</div>
+    <div style="font-size:28px;font-weight:800"><?php echo $cntGiaxoai===null?'—':$cntGiaxoai; ?></div>
   </div>
 </div>

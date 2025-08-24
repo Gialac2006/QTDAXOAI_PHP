@@ -478,28 +478,30 @@ $who  = htmlspecialchars($user['HoTen'] ?? $user['TenDangNhap'] ?? 'Admin');
   <header class="topbar">
     <div class="brand">Quản trị vùng xoài</div>
     <div class="top-actions">
-      <span class="user">👤 <?php echo $who; ?> (Admin)</span>
+      <span class="user"><?php echo $who; ?> (Admin)</span>
       <a href="../logout.php?redirect=../login.html">Đăng xuất</a>
     </div>
   </header>
   <div class="wrap">
     <aside class="side">
       <ul class="menu">
-        <li><a href="index.php?p=dashboard" class="<?php echo $page==='dashboard'?'active':''; ?>">📊 Tổng quan</a></li>
-        <li><a href="index.php?p=honongdan" class="<?php echo $page==='honongdan'?'active':''; ?>">👥 Hộ nông dân</a></li>
-        <li><a href="index.php?p=giongxoai" class="<?php echo $page==='giongxoai'?'active':''; ?>">🥭 Giống xoài</a></li>
-        <li><a href="index.php?p=vungtrong" class="<?php echo $page==='vungtrong'?'active':''; ?>">🗺️ Vùng trồng</a></li>
-        <li><a href="index.php?p=nguoidung" class="<?php echo $page==='nguoidung'?'active':''; ?>">👤 Người dùng</a></li>
-        <li><a href="index.php?p=thuocbvtv" class="<?php echo $page==='thuocbvtv'?'active':''; ?>">🛡️ Thuốc bảo vệ thực vật</a></li>
-        <li><a href="index.php?p=phanbon" class="<?php echo $page==='phanbon'?'active':''; ?>">🧪 Phân bón</a></li>
-        <li><a href="index.php?p=canhtac" class="<?php echo $page==='canhtac'?'active':''; ?>">🚜 Canh tác</a></li>
-        <li><a href="index.php?p=thietbimaymoc" class="<?php echo $page==='thietbimaymoc'?'active':''; ?>">⚙️ Thiết bị máy móc</a></li>
-        <li><a href="index.php?p=thietbiiot" class="<?php echo $page==='thietbiiot'?'active':''; ?>">📡 Thiết bị IOT</a></li>
-        <li><a href="index.php?p=nhatkyphunthuoc" class="<?php echo $page==='nhatkyphunthuoc'?'active':''; ?>">📝 Nhật ký phun thuốc</a></li>
-        <li><a href="index.php?p=thoitiet" class="<?php echo $page==='thoitiet'?'active':''; ?>">🌤️ Thời tiết</a></li>
-        <li><a href="index.php?p=lichbaotri" class="<?php echo $page==='lichbaotri'?'active':''; ?>">📅 Lịch bảo trì</a></li>
-        <li><a href="index.php?p=baocaosanluong" class="<?php echo $page==='baocaosanluong'?'active':''; ?>">📊 Báo cáo sản lượng</a></li>
-        <li><a href="index.php?p=bandogis" class="<?php echo $page==='baodogis'?'active':''; ?>">🗺️ Bản đồ gis</a></li>
+        <li><a href="index.php?p=dashboard" class="<?php echo $page==='dashboard'?'active':''; ?>">Tổng quan</a></li>
+        <li><a href="index.php?p=honongdan" class="<?php echo $page==='honongdan'?'active':''; ?>">Hộ nông dân</a></li>
+        <li><a href="index.php?p=giongxoai" class="<?php echo $page==='giongxoai'?'active':''; ?>">Giống xoài</a></li>
+        <li><a href="index.php?p=vungtrong" class="<?php echo $page==='vungtrong'?'active':''; ?>">Vùng trồng</a></li>
+        <li><a href="index.php?p=nguoidung" class="<?php echo $page==='nguoidung'?'active':''; ?>">Người dùng</a></li>
+        <li><a href="index.php?p=thuocbvtv" class="<?php echo $page==='thuocbvtv'?'active':''; ?>">Thuốc bảo vệ thực vật</a></li>
+        <li><a href="index.php?p=phanbon" class="<?php echo $page==='phanbon'?'active':''; ?>">Phân bón</a></li>
+        <li><a href="index.php?p=canhtac" class="<?php echo $page==='canhtac'?'active':''; ?>">Canh tác</a></li>
+        <li><a href="index.php?p=thietbimaymoc" class="<?php echo $page==='thietbimaymoc'?'active':''; ?>">Thiết bị máy móc</a></li>
+        <li><a href="index.php?p=thietbiiot" class="<?php echo $page==='thietbiiot'?'active':''; ?>">Thiết bị IOT</a></li>
+        <li><a href="index.php?p=nhatkyphunthuoc" class="<?php echo $page==='nhatkyphunthuoc'?'active':''; ?>">Nhật ký phun thuốc</a></li>
+        <li><a href="index.php?p=thoitiet" class="<?php echo $page==='thoitiet'?'active':''; ?>">Thời tiết</a></li>
+        <li><a href="index.php?p=lichbaotri" class="<?php echo $page==='lichbaotri'?'active':''; ?>">Lịch bảo trì</a></li>
+        <li><a href="index.php?p=baocaosanluong" class="<?php echo $page==='baocaosanluong'?'active':''; ?>">Báo cáo sản lượng</a></li>
+        <li><a href="index.php?p=bandogis" class="<?php echo $page==='baodogis'?'active':''; ?>">Bản đồ gis</a></li>
+        <li><a href="index.php?p=giaxoai" class="<?php echo $page==='giaxoai'?'active':''; ?>">Giá xoài</a></li>
+
       </ul>
     </aside>
     <main class="container">

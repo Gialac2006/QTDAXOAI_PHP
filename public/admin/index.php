@@ -12,7 +12,7 @@ require ADMIN_DIR.'/_guard.php';
 
 // Router
 $page  = $_GET['p'] ?? 'dashboard';
-$allow = ['dashboard','honongdan','giongxoai','vungtrong','nguoidung','thuocbvtv','phanbon','canhtac','thietbimaymoc','thietbiiot','nhatkyphunthuoc','thoitiet','lichbaotri','baocaosanluong','bandogis','404'];
+$allow = ['dashboard','honongdan','giongxoai','vungtrong','nguoidung','thuocbvtv','phanbon','canhtac','thietbimaymoc','thietbiiot','nhatkyphunthuoc','thoitiet','lichbaotri','baocaosanluong','bandogis','giaxoai','404'];
 if (!in_array($page, $allow, true)) $page = '404';
 
 // Đường dẫn view & layout

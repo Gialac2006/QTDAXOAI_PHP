@@ -3,19 +3,19 @@
 require_once __DIR__.'/public/connect.php';
 
 try {
-    // Lấy dữ liệu từ database
-    $sql = "SELECT * FROM vung_trong ORDER BY NgayBatDau DESC";
+    // Lấy dữ liệu từ database sử dụng MySQLi
+    $sql = "SELECT * FROM giong_xoai ORDER BY TenGiong ASC";
     $result = $conn->query($sql);
     
     if ($result) {
-        $vungs = $result->fetch_all(MYSQLI_ASSOC);
+        $giongxoai = $result->fetch_all(MYSQLI_ASSOC);
     } else {
         throw new Exception("Lỗi truy vấn: " . $conn->error);
     }
     
 } catch(Exception $e) {
     echo "Lỗi: " . $e->getMessage();
-    $vungs = [];
+    $giongxoai = [];
 }
 ?>
 <!DOCTYPE html>
@@ -23,11 +23,12 @@ try {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>VÙNG TRỒNG - VÙNG XOÀI ĐỒNG THÁP</title>
+    <title>GIỐNG XOÀI - VÙNG XOÀI ĐỒNG THÁP</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/giaodien.css">
-    <link rel="stylesheet" href="assets/css/vungtrong.css">
+    <link rel="stylesheet" href="assets/css/giongxoai.css">
 </head>
 <body>
 
@@ -35,7 +36,7 @@ try {
 <nav class="navbar">
     <ul class="navbar-menu">
        <li class="navbar-item active"><a href="home.html">Trang chủ</a></li>
-        <li class="navbar-item active"><a href="aboutus.html">Tụi tui</a></li>
+        <li class="navbar-item active"><a href="aboutus.html">Đội ngũ</a></li>
         <li class="navbar-item">Nông dân
             <div class="navbar-dropdown">
                 <a href="honongdan.php">Danh sách nông dân</a>
@@ -54,7 +55,7 @@ try {
         </li>
         <li class="navbar-item">Sản xuất
             <div class="navbar-dropdown">
-                <a href="#">Theo dõi mùa vụ</a>
+                <a href="muavu.php">Theo dõi mùa vụ</a>
                 <a href="canhtac.php">Canh tác</a>
                 <a href="nhatkyphunthuoc.php">Nhật ký phun thuốc</a>
                 <a href="thuocbvtv.php">Thuốc bảo vệ thực vật</a>
@@ -75,17 +76,17 @@ try {
         </li>
         <li class="navbar-item">ADMIN
             <div class="navbar-dropdown">
-                <a href="login.html">QUẢN LÍ</a>
+                <a href="login.html">QUẢN LÝ</a>
             </div>
         </li>
     </ul>
 </nav>
 
 <!-- Header Section -->
-<section class="farmer-header">
+<section class="giong-header">
     <div class="container">
-        <h1>VÙNG TRỒNG XOÀI</h1>
-        <p>Thông tin các vùng trồng xoài tại Đồng Tháp</p>
+        <h1>GIỐNG XOÀI CHẤT LƯỢNG CAO</h1>
+        <p>Đồng Tháp - Nơi những giống xoài đặc sản được nông dân tin tưởng lựa chọn</p>
     </div>
 </section>
 
@@ -95,20 +96,20 @@ try {
         <div class="row">
             <div class="col-md-4">
                 <div class="stat-item">
-                    <span class="stat-number"><?php echo count($vungs); ?></span>
-                    <span class="stat-label">Vùng trồng</span>
+                    <span class="stat-number"><?php echo count($giongxoai); ?></span>
+                    <span class="stat-label">Giống xoài</span>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="stat-item">
-                    <span class="stat-number"><?php echo array_sum(array_column($vungs, 'DienTich')); ?></span>
-                    <span class="stat-label">m² Tổng diện tích</span>
+                    <span class="stat-number"><?php echo count(array_filter($giongxoai, function($item) { return $item['TinhTrang'] == 'Còn sử dụng'; })); ?></span>
+                    <span class="stat-label">Đang sử dụng</span>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="stat-item">
-                    <span class="stat-number"><?php echo count(array_unique(array_column($vungs, 'MaHo'))); ?></span>
-                    <span class="stat-label">Hộ tham gia</span>
+                    <span class="stat-number"><?php echo count(array_unique(array_column($giongxoai, 'TenGiong'))); ?></span>
+                    <span class="stat-label">Loại giống</span>
                 </div>
             </div>
         </div>
@@ -118,73 +119,70 @@ try {
     <div class="search-box">
         <div class="row align-items-center">
             <div class="col-md-8">
-                <input type="text" id="searchInput" class="form-control search-input" placeholder="Tìm kiếm theo tên vùng, địa chỉ...">
+                <input type="text" id="searchInput" class="form-control search-input" placeholder="Tìm kiếm theo tên giống, mã giống, đặc điểm...">
             </div>
             <div class="col-md-4">
                 <select class="form-select search-input" id="filterTinhTrang">
                     <option value="">Tất cả tình trạng</option>
-                    <option value="Đang trồng">Đang trồng</option>
-                    <option value="Chuẩn bị">Chuẩn bị</option>
-                    <option value="Bảo trì">Bảo trì</option>
+                    <option value="Còn sử dụng">Còn sử dụng</option>
+                    <option value="Tạm ngưng">Tạm ngưng</option>
+                    <option value="Ngưng hoàn toàn">Ngưng hoàn toàn</option>
                 </select>
             </div>
         </div>
     </div>
 
-    <!-- Vùng Trồng List -->
-    <div class="row" id="vungtrongContainer">
-        <?php if (empty($vungs)): ?>
+    <!-- Giong Xoai List -->
+    <div class="row" id="giongContainer">
+        <?php if (empty($giongxoai)): ?>
             <div class="col-12">
-                <div class="no-farmers">
-                    <i class="fas fa-map"></i>
-                    <h3>Chưa có vùng trồng nào</h3>
-                    <p>Hãy thêm thông tin vùng trồng đầu tiên của bạn</p>
+                <div class="no-giong">
+                    <i class="fas fa-seedling"></i>
+                    <h3>Chưa có giống xoài nào được đăng ký</h3>
+                    <p>Hãy thêm thông tin giống xoài đầu tiên của bạn</p>
                 </div>
             </div>
         <?php else: ?>
-            <?php foreach ($vungs as $vung): ?>
-                <div class="col-lg-6 vung-item" 
-                     data-name="<?php echo strtolower($vung['TenVung']); ?>"
-                     data-address="<?php echo strtolower($vung['DiaChi']); ?>"
-                     data-tinhtrang="<?php echo strtolower($vung['TinhTrang']); ?>">
-                    <div class="farmer-card">
-                        <div class="farmer-avatar">🌍</div>
-                        
-                        <h3 class="farmer-name"><?php echo htmlspecialchars($vung['TenVung']); ?></h3>
-                        
-                        <div class="farmer-info">
-                            <i class="fas fa-id-card"></i>
-                            <span><strong>Mã vùng:</strong> <?php echo htmlspecialchars($vung['MaVung']); ?></span>
+            <?php foreach ($giongxoai as $giong): ?>
+                <div class="col-lg-6 giong-item" 
+                     data-name="<?php echo strtolower($giong['TenGiong']); ?>"
+                     data-code="<?php echo strtolower($giong['MaGiong']); ?>"
+                     data-features="<?php echo strtolower($giong['DacDiem']); ?>"
+                     data-status="<?php echo $giong['TinhTrang']; ?>">
+                    <div class="giong-card">
+                        <div class="giong-avatar">
+                            <?php echo strtoupper(substr($giong['TenGiong'], -1)); ?>
                         </div>
                         
-                        <div class="farmer-info">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span><strong>Địa chỉ:</strong> <?php echo htmlspecialchars($vung['DiaChi']); ?></span>
+                        <h3 class="giong-name"><?php echo htmlspecialchars($giong['TenGiong']); ?></h3>
+                        
+                        <div class="giong-info">
+                            <i class="fas fa-barcode"></i>
+                            <span><strong>Mã giống:</strong> <?php echo htmlspecialchars($giong['MaGiong']); ?></span>
                         </div>
                         
-                        <div class="farmer-info">
-                            <i class="fas fa-ruler-combined"></i>
-                            <span><strong>Diện tích:</strong> <?php echo number_format($vung['DienTich'], 0, ',', '.'); ?> m²</span>
+                        <div class="giong-info">
+                            <i class="fas fa-clock"></i>
+                            <span><strong>Thời gian trưởng thành:</strong> <?php echo htmlspecialchars($giong['ThoiGianTruongThanh']); ?></span>
                         </div>
                         
-                        <div class="farmer-info">
-                            <i class="fas fa-seedling"></i>
-                            <span><strong>Tình trạng:</strong> <span class="badge-custom"><?php echo htmlspecialchars($vung['TinhTrang']); ?></span></span>
+                        <div class="giong-info">
+                            <i class="fas fa-weight-hanging"></i>
+                            <span><strong>Năng suất TB:</strong> <?php echo htmlspecialchars($giong['NangSuatTrungBinh']); ?></span>
                         </div>
                         
-                        <div class="farmer-info">
-                            <i class="fas fa-calendar-plus"></i>
-                            <span><strong>Ngày bắt đầu:</strong> <?php echo date('d/m/Y', strtotime($vung['NgayBatDau'])); ?></span>
+                        <div class="giong-info">
+                            <i class="fas fa-star"></i>
+                            <span><strong>Đặc điểm:</strong> <?php echo htmlspecialchars($giong['DacDiem']); ?></span>
                         </div>
                         
-                        <div class="farmer-info">
-                            <i class="fas fa-user"></i>
-                            <span><strong>Mã hộ:</strong> <?php echo htmlspecialchars($vung['MaHo']); ?></span>
-                        </div>
-                        
-                        <div class="farmer-info">
-                            <i class="fas fa-leaf"></i>
-                            <span><strong>Mã giống:</strong> <?php echo htmlspecialchars($vung['MaGiong']); ?></span>
+                        <div class="giong-info">
+                            <i class="fas fa-info-circle"></i>
+                            <span><strong>Tình trạng:</strong> 
+                                <span class="badge-status <?php echo strtolower(str_replace(' ', '-', $giong['TinhTrang'])); ?>">
+                                    <?php echo htmlspecialchars($giong['TinhTrang']); ?>
+                                </span>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -193,7 +191,7 @@ try {
     </div>
 
     <!-- No Results Message -->
-    <div id="noResults" class="no-farmers" style="display: none;">
+    <div id="noResults" class="no-giong" style="display: none;">
         <i class="fas fa-search"></i>
         <h3>Không tìm thấy kết quả</h3>
         <p>Vui lòng thử tìm kiếm với từ khóa khác</p>
@@ -201,8 +199,7 @@ try {
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://kit.fontawesome.com/your-fontawesome-kit.js"></script>
-<script src="assets/js/vungtrong.js"></script>
+<script src="assets/js/giongxoai.js"></script>
 
 </body>
 </html>

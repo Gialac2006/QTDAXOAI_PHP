@@ -1,0 +1,272 @@
+/* Canh Tác CSS - Based on honongdan.css */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #81c784 0%, #a5d6a7 30%, #c8e6c9 70%, #dcedc8 100%);
+    min-height: 100vh;
+}
+
+.activity-header {
+    background: linear-gradient(rgba(76,175,80,0.8), rgba(129,199,132,0.8)), 
+                url('assets/img/canh-tac-background.jpg') center/cover;
+    color: white;
+    padding: 100px 0 60px;
+    text-align: center;
+    margin-bottom: 40px;
+    border-bottom: 5px solid #4caf50;
+}
+
+.activity-header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    margin-bottom: 20px;
+}
+
+.activity-header p {
+    font-size: 1.2rem;
+    margin-bottom: 0;
+}
+
+.activity-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 15px 35px rgba(76, 175, 80, 0.1);
+    transition: all 0.3s ease;
+    border: 2px solid rgba(129, 199, 132, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.activity-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 50px rgba(76, 175, 80, 0.2);
+    border-color: rgba(129, 199, 132, 0.4);
+}
+
+.activity-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(76, 175, 80, 0.1);
+}
+
+.activity-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(45deg, #81c784, #a5d6a7, #c8e6c9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    box-shadow: 0 10px 25px rgba(129, 199, 132, 0.3);
+    border: 3px solid rgba(255, 255, 255, 0.8);
+}
+
+.activity-title {
+    color: #2e7d32;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.activity-info {
+    color: #34495e;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: flex-start;
+    line-height: 1.6;
+}
+
+.activity-info i {
+    width: 25px;
+    color: #4caf50;
+    margin-right: 10px;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.activity-info.note {
+    background: rgba(76, 175, 80, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+    border-left: 4px solid #4caf50;
+}
+
+.badge-activity {
+    background: linear-gradient(45deg, #4caf50, #66bb6a);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    box-shadow: 0 3px 10px rgba(76, 175, 80, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stats-section {
+    background: rgba(255,255,255,0.9);
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 40px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(76, 175, 80, 0.1);
+}
+
+.stat-item {
+    margin: 0 20px;
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #4caf50;
+    display: block;
+    text-shadow: 2px 2px 4px rgba(76, 175, 80, 0.3);
+}
+
+.stat-label {
+    color: #7f8c8d;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.search-box {
+    background: rgba(255,255,255,0.9);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.1);
+}
+
+.search-input {
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    margin-bottom: 10px;
+}
+
+.search-input:focus {
+    border-color: #4caf50;
+    box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
+}
+
+.search-btn {
+    background: linear-gradient(45deg, #4caf50, #66bb6a);
+    border: none;
+    border-radius: 10px;
+    padding: 12px 24px;
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.search-btn:hover {
+    background: linear-gradient(45deg, #388e3c, #4caf50);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+}
+
+.no-activities {
+    text-align: center;
+    padding: 60px 20px;
+    color: #7f8c8d;
+    background: rgba(255,255,255,0.9);
+    border-radius: 20px;
+    margin: 20px 0;
+}
+
+.no-activities i {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    color: #4caf50;
+    opacity: 0.7;
+}
+
+.no-activities h3 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .activity-header h1 {
+        font-size: 2.2rem;
+    }
+    
+    .activity-header p {
+        font-size: 1rem;
+    }
+    
+    .activity-card {
+        padding: 20px;
+    }
+    
+    .activity-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+    }
+    
+    .stat-number {
+        font-size: 2.5rem;
+    }
+    
+    .search-box .row {
+        row-gap: 15px;
+    }
+    
+    .stats-section {
+        padding: 20px;
+    }
+    
+    .stat-item {
+        margin: 10px 0;
+    }
+}
+
+/* Animation Classes */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Activity Type Specific Colors */
+.activity-card[data-loai="Tưới"] .activity-icon {
+    background: linear-gradient(45deg, #2196f3, #64b5f6, #90caf9);
+}
+
+.activity-card[data-loai="Tưới"] .badge-activity {
+    background: linear-gradient(45deg, #2196f3, #42a5f5);
+}
+
+.activity-card[data-loai="Bón phân"] .activity-icon {
+    background: linear-gradient(45deg, #4caf50, #66bb6a, #81c784);
+}
+
+.activity-card[data-loai="Bón phân"] .badge-activity {
+    background: linear-gradient(45deg, #4caf50, #66bb6a);
+}
+
+.activity-card[data-loai="Phun thuốc"] .activity-icon {
+    background: linear-gradient(45deg, #ff9800, #ffb74d, #ffcc02);
+}
+
+.activity-card[data-loai="Phun thuốc"] .badge-activity {
+    background: linear-gradient(45deg, #ff9800, #ffb74d);
+}

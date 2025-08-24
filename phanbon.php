@@ -3,17 +3,17 @@
 require_once __DIR__.'/public/connect.php';
 
 try {
-    $sql = "SELECT * FROM thiet_bi_may_moc ORDER BY NamSuDung DESC";
+    $sql = "SELECT * FROM phan_bon ORDER BY TenPhanBon ASC";
     $result = $conn->query($sql);
 
     if ($result) {
-        $devices = $result->fetch_all(MYSQLI_ASSOC);
+        $phanbons = $result->fetch_all(MYSQLI_ASSOC);
     } else {
         throw new Exception("Lỗi truy vấn: " . $conn->error);
     }
 } catch(Exception $e) {
     echo "Lỗi: " . $e->getMessage();
-    $devices = [];
+    $phanbons = [];
 }
 ?>
 <!DOCTYPE html>
@@ -21,18 +21,18 @@ try {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>THIẾT BỊ MÁY MÓC - VÙNG XOÀI ĐỒNG THÁP</title>
+  <title>PHÂN BÓN - VÙNG XOÀI ĐỒNG THÁP</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/giaodien.css">
-  <link rel="stylesheet" href="assets/css/thietbimaymoc.css">
+  <link rel="stylesheet" href="assets/css/phanbon.css">
 </head>
 <body>
 <!-- Navbar giống như trang chủ -->
 <nav class="navbar">
     <ul class="navbar-menu">
        <li class="navbar-item active"><a href="home.html">Trang chủ</a></li>
-        <li class="navbar-item active"><a href="aboutus.html">Tụi tui</a></li>
+        <li class="navbar-item active"><a href="aboutus.html">Đội ngũ</a></li>
         <li class="navbar-item">Nông dân
             <div class="navbar-dropdown">
                 <a href="honongdan.php">Danh sách nông dân</a>
@@ -51,7 +51,7 @@ try {
         </li>
         <li class="navbar-item">Sản xuất
             <div class="navbar-dropdown">
-                <a href="#">Theo dõi mùa vụ</a>
+                <a href="muavu.php">Theo dõi mùa vụ</a>
                 <a href="canhtac.php">Canh tác</a>
                 <a href="nhatkyphunthuoc.php">Nhật ký phun thuốc</a>
                 <a href="thuocbvtv.php">Thuốc bảo vệ thực vật</a>
@@ -78,10 +78,10 @@ try {
     </ul>
 </nav>
 <!-- Header -->
-<section class="device-header">
+<section class="phanbon-header">
   <div class="container">
-    <h1>Thiết Bị Máy Móc</h1>
-    <p>Danh sách các thiết bị phục vụ canh tác xoài</p>
+    <h1>Phân Bón</h1>
+    <p>Danh sách các loại phân bón sử dụng trong canh tác xoài</p>
   </div>
 </section>
 
@@ -90,59 +90,43 @@ try {
   <div class="search-box">
     <div class="row align-items-center">
       <div class="col-md-8">
-        <input type="text" id="searchInput" class="form-control search-input" placeholder="Tìm theo tên thiết bị, loại, tình trạng...">
+        <input type="text" id="searchInput" class="form-control search-input" placeholder="Tìm theo tên phân bón, loại...">
       </div>
     </div>
   </div>
 
   <!-- List -->
-  <div class="row" id="deviceContainer">
-    <?php if (empty($devices)): ?>
+  <div class="row" id="phanbonContainer">
+    <?php if (empty($phanbons)): ?>
       <div class="col-12">
-        <div class="no-device">
-          <i class="fas fa-tools"></i>
-          <h3>Chưa có dữ liệu thiết bị</h3>
-          <p>Hãy thêm thiết bị máy móc vào hệ thống</p>
+        <div class="no-phanbon">
+          <i class="fas fa-seedling"></i>
+          <h3>Chưa có dữ liệu phân bón</h3>
+          <p>Hãy thêm thông tin phân bón vào hệ thống</p>
         </div>
       </div>
     <?php else: ?>
-      <?php foreach ($devices as $d): ?>
-        <div class="col-lg-6 device-item" 
-             data-ten="<?php echo strtolower($d['TenThietBi']); ?>"
-             data-loai="<?php echo strtolower($d['LoaiThietBi']); ?>"
-             data-tinhtrang="<?php echo strtolower($d['TinhTrang']); ?>">
-          <div class="device-card">
-            <div class="device-avatar">🔧</div>
-            <h3 class="device-name"><?php echo htmlspecialchars($d['TenThietBi']); ?></h3>
+      <?php foreach ($phanbons as $p): ?>
+        <div class="col-lg-6 phanbon-item" 
+             data-ten="<?php echo strtolower($p['TenPhanBon']); ?>"
+             data-loai="<?php echo strtolower($p['Loai']); ?>">
+          <div class="phanbon-card">
+            <div class="phanbon-avatar">🌿</div>
+            <h3 class="phanbon-name"><?php echo htmlspecialchars($p['TenPhanBon']); ?></h3>
 
-            <div class="device-info">
-              <i class="fas fa-id-card"></i>
-              <span><strong>Mã thiết bị:</strong> <?php echo htmlspecialchars($d['MaThietBi']); ?></span>
+            <div class="phanbon-info">
+              <i class="fas fa-tags"></i>
+              <span><strong>Loại:</strong> <?php echo htmlspecialchars($p['Loai']); ?></span>
             </div>
 
-            <div class="device-info">
-              <i class="fas fa-cogs"></i>
-              <span><strong>Loại thiết bị:</strong> <?php echo htmlspecialchars($d['LoaiThietBi']); ?></span>
+            <div class="phanbon-info">
+              <i class="fas fa-box"></i>
+              <span><strong>Đơn vị tính:</strong> <?php echo htmlspecialchars($p['DonViTinh']); ?></span>
             </div>
 
-            <div class="device-info">
-              <i class="fas fa-calendar-alt"></i>
-              <span><strong>Năm sử dụng:</strong> <?php echo htmlspecialchars($d['NamSuDung']); ?></span>
-            </div>
-
-            <div class="device-info">
-              <i class="fas fa-check-circle"></i>
-              <span><strong>Tình trạng:</strong> <span class="badge-custom"><?php echo htmlspecialchars($d['TinhTrang']); ?></span></span>
-            </div>
-
-            <div class="device-info">
-              <i class="fas fa-user"></i>
-              <span><strong>Mã hộ:</strong> <?php echo htmlspecialchars($d['MaHo']); ?></span>
-            </div>
-
-            <div class="device-info">
-              <i class="fas fa-map-marker-alt"></i>
-              <span><strong>Mã vùng:</strong> <?php echo htmlspecialchars($d['MaVung']); ?></span>
+            <div class="phanbon-info">
+              <i class="fas fa-info-circle"></i>
+              <span><strong>Ghi chú:</strong> <?php echo htmlspecialchars($p['GhiChu']); ?></span>
             </div>
           </div>
         </div>
@@ -150,7 +134,7 @@ try {
     <?php endif; ?>
   </div>
 
-  <div id="noResults" class="no-device" style="display: none;">
+  <div id="noResults" class="no-phanbon" style="display: none;">
     <i class="fas fa-search"></i>
     <h3>Không tìm thấy kết quả</h3>
     <p>Vui lòng thử từ khóa khác</p>
@@ -159,7 +143,7 @@ try {
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://kit.fontawesome.com/your-fontawesome-kit.js"></script>
-<script src="assets/js/thietbimaymoc.js"></script>
+<script src="assets/js/phanbon.js"></script>
 
 </body>
 </html>

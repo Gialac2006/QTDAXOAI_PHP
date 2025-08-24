@@ -1,19 +1,19 @@
 <?php
-// Include file connect
+// Kết nối CSDL
 require_once __DIR__.'/public/connect.php';
 
 try {
-    $sql = "SELECT * FROM ban_do_gis ORDER BY MaVung ASC";
+    $sql = "SELECT * FROM thuoc_bvtv ORDER BY TenThuoc ASC";
     $result = $conn->query($sql);
 
     if ($result) {
-        $maps = $result->fetch_all(MYSQLI_ASSOC);
+        $thuocs = $result->fetch_all(MYSQLI_ASSOC);
     } else {
         throw new Exception("Lỗi truy vấn: " . $conn->error);
     }
 } catch(Exception $e) {
     echo "Lỗi: " . $e->getMessage();
-    $maps = [];
+    $thuocs = [];
 }
 ?>
 <!DOCTYPE html>
@@ -21,22 +21,22 @@ try {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BẢN ĐỒ GIS - VÙNG XOÀI ĐỒNG THÁP</title>
+  <title>THUỐC BẢO VỆ THỰC VẬT</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/giaodien.css">
-  <link rel="stylesheet" href="assets/css/bandogis.css">
+  <link rel="stylesheet" href="assets/css/thuocbvtv.css">
 </head>
 <body>
-<!-- Navbar -->
+<!-- Navbar giống như trang chủ -->
 <nav class="navbar">
     <ul class="navbar-menu">
        <li class="navbar-item active"><a href="home.html">Trang chủ</a></li>
-        <li class="navbar-item active"><a href="aboutus.html">Tụi tui</a></li>
+        <li class="navbar-item active"><a href="aboutus.html">Đội ngũ</a></li>
         <li class="navbar-item">Nông dân
             <div class="navbar-dropdown">
                 <a href="honongdan.php">Danh sách nông dân</a>
-                <a href="thietbitheoho.php">Thiết bị theo hộ</a>
+                <a href="thietbiho.php">Thiết bị theo hộ</a>
                 <a href="hotro.php">Hỗ trợ</a>
             </div>
         </li>
@@ -45,13 +45,13 @@ try {
                 <a href="vungtrong.php">Vùng trồng</a>
                 <a href="muavu.php">Mùa vụ</a>
                 <a href="giongxoai.php">Giống Xoài</a>
-                <a href="bandogis.php">Sổ thửa & bản đồ</a>
+                <a href="bandogis.php">Sở thừa & bản đồ</a>
                 <a href="thoitiet.php">Thời tiết</a>
             </div>
         </li>
         <li class="navbar-item">Sản xuất
             <div class="navbar-dropdown">
-                <a href="#">Theo dõi mùa vụ</a>
+                <a href="muavu.php">Theo dõi mùa vụ</a>
                 <a href="canhtac.php">Canh tác</a>
                 <a href="nhatkyphunthuoc.php">Nhật ký phun thuốc</a>
                 <a href="thuocbvtv.php">Thuốc bảo vệ thực vật</a>
@@ -72,17 +72,16 @@ try {
         </li>
         <li class="navbar-item">ADMIN
             <div class="navbar-dropdown">
-                <a href="login.html">QUẢN LÍ</a>
+                <a href="login.html">QUẢN LÝ</a>
             </div>
         </li>
     </ul>
 </nav>
-
 <!-- Header -->
-<section class="map-header">
+<section class="thuoc-header">
   <div class="container">
-    <h1>Bản đồ GIS</h1>
-    <p>Quản lý thông tin tọa độ vùng trồng xoài</p>
+    <h1>Thuốc Bảo Vệ Thực Vật</h1>
+    <p>Danh sách các loại thuốc sử dụng trong canh tác xoài</p>
   </div>
 </section>
 
@@ -91,43 +90,43 @@ try {
   <div class="search-box">
     <div class="row align-items-center">
       <div class="col-md-8">
-        <input type="text" id="searchInput" class="form-control search-input" placeholder="Tìm theo mã vùng, nhãn tên...">
+        <input type="text" id="searchInput" class="form-control search-input" placeholder="Tìm theo tên thuốc, hoạt chất...">
       </div>
     </div>
   </div>
 
   <!-- List -->
-  <div class="row" id="gisContainer">
-    <?php if (empty($maps)): ?>
+  <div class="row" id="thuocContainer">
+    <?php if (empty($thuocs)): ?>
       <div class="col-12">
-        <div class="no-maps">
-          <i class="fas fa-map"></i>
-          <h3>Chưa có dữ liệu GIS</h3>
-          <p>Hãy thêm vùng trồng vào hệ thống</p>
+        <div class="no-thuoc">
+          <i class="fas fa-vial"></i>
+          <h3>Chưa có dữ liệu thuốc</h3>
+          <p>Hãy thêm thuốc BVTV vào hệ thống</p>
         </div>
       </div>
     <?php else: ?>
-      <?php foreach ($maps as $m): ?>
-        <div class="col-lg-6 gis-item" 
-             data-mavung="<?php echo strtolower($m['MaVung']); ?>"
-             data-nhanten="<?php echo strtolower($m['NhanTen']); ?>">
-          <div class="gis-card">
-            <div class="gis-avatar">📍</div>
-            <h3 class="gis-name"><?php echo htmlspecialchars($m['NhanTen']); ?></h3>
+      <?php foreach ($thuocs as $t): ?>
+        <div class="col-lg-6 thuoc-item" 
+             data-ten="<?php echo strtolower($t['TenThuoc']); ?>"
+             data-hoatchat="<?php echo strtolower($t['HoatChat']); ?>">
+          <div class="thuoc-card">
+            <div class="thuoc-avatar">🧴</div>
+            <h3 class="thuoc-name"><?php echo htmlspecialchars($t['TenThuoc']); ?></h3>
 
-            <div class="gis-info">
-              <i class="fas fa-id-card"></i>
-              <span><strong>Mã vùng:</strong> <?php echo htmlspecialchars($m['MaVung']); ?></span>
+            <div class="thuoc-info">
+              <i class="fas fa-flask"></i>
+              <span><strong>Hoạt chất:</strong> <?php echo htmlspecialchars($t['HoatChat']); ?></span>
             </div>
 
-            <div class="gis-info">
-              <i class="fas fa-map-marker-alt"></i>
-              <span><strong>Tọa độ:</strong> <?php echo htmlspecialchars($m['ToaDo']); ?></span>
+            <div class="thuoc-info">
+              <i class="fas fa-box"></i>
+              <span><strong>Đơn vị tính:</strong> <?php echo htmlspecialchars($t['DonViTinh']); ?></span>
             </div>
 
-            <div class="gis-info">
+            <div class="thuoc-info">
               <i class="fas fa-info-circle"></i>
-              <span><strong>Thông tin:</strong> <?php echo $m['ThongTinPopup']; ?></span>
+              <span><strong>Ghi chú:</strong> <?php echo htmlspecialchars($t['GhiChu']); ?></span>
             </div>
           </div>
         </div>
@@ -135,7 +134,7 @@ try {
     <?php endif; ?>
   </div>
 
-  <div id="noResults" class="no-maps" style="display: none;">
+  <div id="noResults" class="no-thuoc" style="display: none;">
     <i class="fas fa-search"></i>
     <h3>Không tìm thấy kết quả</h3>
     <p>Vui lòng thử từ khóa khác</p>
@@ -144,7 +143,7 @@ try {
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://kit.fontawesome.com/your-fontawesome-kit.js"></script>
-<script src="assets/js/bandogis.js"></script>
+<script src="assets/js/thuocbvtv.js"></script>
 
 </body>
 </html>

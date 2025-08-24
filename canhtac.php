@@ -35,7 +35,7 @@ try {
 <nav class="navbar">
     <ul class="navbar-menu">
        <li class="navbar-item active"><a href="home.html">Trang chủ</a></li>
-        <li class="navbar-item active"><a href="aboutus.html">Tụi tui</a></li>
+        <li class="navbar-item active"><a href="aboutus.html">Đội ngũ</a></li>
         <li class="navbar-item">Nông dân
             <div class="navbar-dropdown">
                 <a href="honongdan.php">Danh sách nông dân</a>
@@ -54,7 +54,7 @@ try {
         </li>
         <li class="navbar-item">Sản xuất
             <div class="navbar-dropdown">
-                <a href="#">Theo dõi mùa vụ</a>
+                <a href="muavu.php">Theo dõi mùa vụ</a>
                 <a href="canhtac.php">Canh tác</a>
                 <a href="nhatkyphunthuoc.php">Nhật ký phun thuốc</a>
                 <a href="thuocbvtv.php">Thuốc bảo vệ thực vật</a>

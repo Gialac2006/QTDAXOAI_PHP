@@ -3,17 +3,17 @@
 require_once __DIR__.'/public/connect.php';
 
 try {
-    $sql = "SELECT * FROM thuoc_bvtv ORDER BY TenThuoc ASC";
+    $sql = "SELECT * FROM bao_cao_san_luong ORDER BY ID DESC";
     $result = $conn->query($sql);
 
     if ($result) {
-        $thuocs = $result->fetch_all(MYSQLI_ASSOC);
+        $reports = $result->fetch_all(MYSQLI_ASSOC);
     } else {
         throw new Exception("Lỗi truy vấn: " . $conn->error);
     }
 } catch(Exception $e) {
     echo "Lỗi: " . $e->getMessage();
-    $thuocs = [];
+    $reports = [];
 }
 ?>
 <!DOCTYPE html>
@@ -21,18 +21,18 @@ try {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>THUỐC BẢO VỆ THỰC VẬT</title>
+  <title>BÁO CÁO SẢN LƯỢNG - VÙNG XOÀI ĐỒNG THÁP</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/giaodien.css">
-  <link rel="stylesheet" href="assets/css/thuocbvtv.css">
+  <link rel="stylesheet" href="assets/css/baocaosanluong.css">
 </head>
 <body>
 <!-- Navbar giống như trang chủ -->
 <nav class="navbar">
     <ul class="navbar-menu">
        <li class="navbar-item active"><a href="home.html">Trang chủ</a></li>
-        <li class="navbar-item active"><a href="aboutus.html">Tụi tui</a></li>
+        <li class="navbar-item active"><a href="aboutus.html">Đội ngũ</a></li>
         <li class="navbar-item">Nông dân
             <div class="navbar-dropdown">
                 <a href="honongdan.php">Danh sách nông dân</a>
@@ -51,7 +51,7 @@ try {
         </li>
         <li class="navbar-item">Sản xuất
             <div class="navbar-dropdown">
-                <a href="#">Theo dõi mùa vụ</a>
+                <a href="muavu.php">Theo dõi mùa vụ</a>
                 <a href="canhtac.php">Canh tác</a>
                 <a href="nhatkyphunthuoc.php">Nhật ký phun thuốc</a>
                 <a href="thuocbvtv.php">Thuốc bảo vệ thực vật</a>
@@ -78,10 +78,10 @@ try {
     </ul>
 </nav>
 <!-- Header -->
-<section class="thuoc-header">
+<section class="report-header">
   <div class="container">
-    <h1>Thuốc Bảo Vệ Thực Vật</h1>
-    <p>Danh sách các loại thuốc sử dụng trong canh tác xoài</p>
+    <h1>Báo Cáo Sản Lượng</h1>
+    <p>Thống kê sản lượng, chất lượng xoài từng mùa vụ</p>
   </div>
 </section>
 
@@ -90,43 +90,49 @@ try {
   <div class="search-box">
     <div class="row align-items-center">
       <div class="col-md-8">
-        <input type="text" id="searchInput" class="form-control search-input" placeholder="Tìm theo tên thuốc, hoạt chất...">
+        <input type="text" id="searchInput" class="form-control search-input" placeholder="Tìm theo mã vùng, mùa vụ, chất lượng...">
       </div>
     </div>
   </div>
 
   <!-- List -->
-  <div class="row" id="thuocContainer">
-    <?php if (empty($thuocs)): ?>
+  <div class="row" id="reportContainer">
+    <?php if (empty($reports)): ?>
       <div class="col-12">
-        <div class="no-thuoc">
-          <i class="fas fa-vial"></i>
-          <h3>Chưa có dữ liệu thuốc</h3>
-          <p>Hãy thêm thuốc BVTV vào hệ thống</p>
+        <div class="no-report">
+          <i class="fas fa-chart-bar"></i>
+          <h3>Chưa có báo cáo sản lượng</h3>
+          <p>Hãy thêm dữ liệu để theo dõi mùa vụ xoài</p>
         </div>
       </div>
     <?php else: ?>
-      <?php foreach ($thuocs as $t): ?>
-        <div class="col-lg-6 thuoc-item" 
-             data-ten="<?php echo strtolower($t['TenThuoc']); ?>"
-             data-hoatchat="<?php echo strtolower($t['HoatChat']); ?>">
-          <div class="thuoc-card">
-            <div class="thuoc-avatar">🧴</div>
-            <h3 class="thuoc-name"><?php echo htmlspecialchars($t['TenThuoc']); ?></h3>
+      <?php foreach ($reports as $r): ?>
+        <div class="col-lg-6 report-item" 
+             data-vung="<?php echo strtolower($r['MaVung']); ?>"
+             data-muavu="<?php echo strtolower($r['MaMuaVu']); ?>"
+             data-chatluong="<?php echo strtolower($r['ChatLuong']); ?>">
+          <div class="report-card">
+            <div class="report-avatar">📈</div>
+            <h3 class="report-name">Mùa vụ: <?php echo htmlspecialchars($r['MaMuaVu']); ?></h3>
 
-            <div class="thuoc-info">
-              <i class="fas fa-flask"></i>
-              <span><strong>Hoạt chất:</strong> <?php echo htmlspecialchars($t['HoatChat']); ?></span>
+            <div class="report-info">
+              <i class="fas fa-map-marker-alt"></i>
+              <span><strong>Mã vùng:</strong> <?php echo htmlspecialchars($r['MaVung']); ?></span>
             </div>
 
-            <div class="thuoc-info">
-              <i class="fas fa-box"></i>
-              <span><strong>Đơn vị tính:</strong> <?php echo htmlspecialchars($t['DonViTinh']); ?></span>
+            <div class="report-info">
+              <i class="fas fa-weight-hanging"></i>
+              <span><strong>Sản lượng:</strong> <?php echo number_format($r['SanLuong'], 2); ?> tấn</span>
             </div>
 
-            <div class="thuoc-info">
+            <div class="report-info">
+              <i class="fas fa-star"></i>
+              <span><strong>Chất lượng:</strong> <span class="badge-custom"><?php echo htmlspecialchars($r['ChatLuong']); ?></span></span>
+            </div>
+
+            <div class="report-info">
               <i class="fas fa-info-circle"></i>
-              <span><strong>Ghi chú:</strong> <?php echo htmlspecialchars($t['GhiChu']); ?></span>
+              <span><strong>Ghi chú:</strong> <?php echo htmlspecialchars($r['GhiChu']); ?></span>
             </div>
           </div>
         </div>
@@ -134,7 +140,7 @@ try {
     <?php endif; ?>
   </div>
 
-  <div id="noResults" class="no-thuoc" style="display: none;">
+  <div id="noResults" class="no-report" style="display: none;">
     <i class="fas fa-search"></i>
     <h3>Không tìm thấy kết quả</h3>
     <p>Vui lòng thử từ khóa khác</p>
@@ -143,7 +149,7 @@ try {
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://kit.fontawesome.com/your-fontawesome-kit.js"></script>
-<script src="assets/js/thuocbvtv.js"></script>
+<script src="assets/js/baocaosanluong.js"></script>
 
 </body>
 </html>
