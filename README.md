@@ -1,101 +1,76 @@
-1) Tổng quan
+1. Tổng quan
 
-Vùng Xoài Đồng Tháp là vùng chuyên canh lớn của miền Tây, tập trung ở các huyện/thành phố trọng điểm.
+Vùng chuyên canh xoài lớn của ĐBSCL, trọng điểm tại TP. Cao Lãnh và các huyện lân cận.
 
-Lợi thế: đất phù sa màu mỡ, mùa nắng dài, kinh nghiệm canh tác lâu đời.
+Sản phẩm: xoài tươi (ăn chín/ăn xanh) và xoài chế biến (sấy dẻo, nước ép…).
 
-Sản phẩm chủ lực: Xoài tươi (ăn chín, ăn xanh), xoài chế biến (sấy dẻo, nước ép, mứt…), hướng đến chuỗi giá trị và thị trường xuất khẩu.
+Định hướng: nâng chất – chuẩn hóa – truy xuất gắn với chuyển đổi số và liên kết chuỗi.
 
-Định hướng: nâng cao chất lượng – tiêu chuẩn – truy xuất, gắn với du lịch nông nghiệp và chuyển đổi số trong quản lý vùng trồng.
+2. Lợi thế tự nhiên & giống chủ lực
 
-2) Đặc điểm nổi bật của vùng xoài
+Lợi thế: đất phù sa, mùa nắng dài, nguồn nước ổn định, kinh nghiệm canh tác.
 
-Giống chủ lực: Cát Chu, Cát Hòa Lộc, Keo… phù hợp nhiều phân khúc (ăn xanh/chín).
+Giống chủ lực: Cát Chu, Cát Hòa Lộc, Keo (đa dạng phân khúc, mùa vụ linh hoạt).
 
-Chất lượng & thương hiệu: quả thơm, ngọt, ít xơ, kích cỡ đồng đều; thương hiệu “Xoài Cao Lãnh” được biết đến rộng rãi.
+Chất lượng: quả thơm, ngọt thanh, ít xơ, mẫu mã đẹp – tạo lợi thế thương hiệu.
 
-Tiêu chuẩn canh tác: mở rộng diện tích đạt VietGAP/GlobalGAP, sử dụng nhật ký canh tác và mã vùng trồng để truy xuất nguồn gốc.
+3. Tiêu chuẩn & thương hiệu
 
-Liên kết chuỗi: hợp tác xã – doanh nghiệp – nông hộ; đặt hàng theo mùa vụ, tối ưu bảo quản – logistics.
+Mở rộng diện tích đạt VietGAP/GlobalGAP; mã vùng trồng – nhật ký canh tác bắt buộc để truy xuất.
 
-3) Hệ thống/Phần mềm quản lý Vùng Xoài (gợi ý nội dung dự án)
+Liên kết hợp tác xã – doanh nghiệp – nông hộ; đặt hàng theo mùa vụ, tối ưu bảo quản – logistics.
 
-Phần này mô phỏng theo cấu trúc “tính năng – quy trình – công nghệ” của phần mềm tiêm chủng bạn đưa, nhưng chuyển ngữ sang bối cảnh Vùng Xoài Đồng Tháp.
+Xây dựng, quảng bá thương hiệu “Xoài Cao Lãnh/Đồng Tháp” ổn định thị trường.
 
-Tính năng chính
+4. Hệ thống quản lý vùng xoài (tham khảo cấu trúc phần mềm)
+4.1. Tính năng chính
 
-Trang chủ
+Trang chủ: thông tin vùng xoài, tin tức – hỗ trợ.
 
-Giới thiệu khái quát Vùng Xoài Đồng Tháp, tin tức – thông báo, liên hệ hỗ trợ.
+Bản đồ vùng trồng (GIS): mã vùng, ranh giới/diện tích, lớp hộ – lô vườn – thiết bị, popup thông tin.
 
-Bản đồ vùng trồng (GIS)
+Hộ nông dân & Giống xoài: hồ sơ hộ; danh mục giống – đặc tính – khuyến cáo.
 
-Quản lý mã vùng trồng, ranh giới/diện tích; lớp bản đồ hộ nông dân – lô vườn – thiết bị.
+Nhật ký canh tác & Vật tư: tưới, bón, phun, tỉa, bao trái, thu hoạch; cảnh báo liều lượng & cách ly.
 
-Popup thông tin vùng (giống, tuổi cây, tình trạng sinh trưởng, ghi chú canh tác).
+Thiết bị & IoT (tuỳ chọn): theo dõi máy móc, cảm biến ẩm độ – mưa nắng, gợi ý lịch chăm sóc.
 
-Hộ nông dân & Giống xoài
+Bảng giá – thị trường: giá thu mua theo giống/độ chín/khu vực; biểu đồ biến động giá.
 
-Hồ sơ hộ nông dân, liên kết lô/vùng.
+Đánh giá & phản hồi: chất lượng lô, quy trình thu mua – vận chuyển.
 
-Danh mục giống xoài, đặc tính, khuyến cáo canh tác.
+Hồ sơ – truy xuất QR: tạo mã QR cho lô, hiển thị quy trình – chứng nhận – ngày thu hoạch.
 
-Nhật ký canh tác & Vật tư
+Dashboard & báo cáo: diện tích, sản lượng, tồn kho, sâu bệnh, tuân thủ, chất lượng theo vùng/giống.
 
-Ghi nhận tưới, bón, phun, tỉa cành, bao trái, thu hoạch; đính kèm ảnh/chứng từ.
+4.2. Quy trình quản lý
 
-Quản lý vật tư (phân bón, thuốc BVTV), cảnh báo liều lượng và thời gian cách ly.
+Khai báo vùng: mã vùng, ranh giới, giống – mật độ.
 
-Thiết bị & IoT (tuỳ chọn)
+Lập kế hoạch mùa vụ: lịch tưới/bón/phun/bao trái; dự trù vật tư.
 
-Theo dõi thiết bị máy móc; tích hợp cảm biến (ẩm độ đất, mưa nắng) để gợi ý lịch tưới/phun.
+Ghi nhật ký: thực hiện – kiểm tra – đính kèm bằng chứng/ảnh.
 
-Bảng giá – thị trường
-
-Cập nhật giá thu mua theo giống/độ chín/địa điểm; biểu đồ dao động giá theo thời gian.
-
-Đánh giá & phản hồi
-
-Nông hộ, thương lái, doanh nghiệp đánh giá chất lượng lô hàng – phản hồi quy trình thu mua/vận chuyển.
-
-Hồ sơ – truy xuất nguồn gốc
-
-Tự động tạo mã QR cho lô xoài: hiển thị quy trình canh tác – chứng nhận – ngày thu hoạch.
-
-Dashboard & Báo cáo
-
-Biểu đồ diện tích, sản lượng, tồn kho, tình trạng sâu bệnh, mức tuân thủ quy trình, chất lượng theo vùng/giống.
-
-Quy trình quản lý (tham khảo)
-
-Khai báo vùng: tạo mã vùng, ranh giới, giống – mật độ.
-
-Lập kế hoạch mùa vụ: lịch tưới/bón/phun/bao trái; vật tư dự trù.
-
-Ghi nhật ký: thực hiện – kiểm tra – đính kèm bằng chứng.
-
-Giám sát & cảnh báo: theo dõi thời tiết, sâu bệnh, ngưỡng IoT, nhắc việc.
+Giám sát & cảnh báo: thời tiết, sâu bệnh, ngưỡng IoT, nhắc việc.
 
 Thu hoạch – phân loại: tạo lô, cân – phân cỡ, gán mã truy xuất.
 
-Báo cáo – phân tích: sản lượng, chi phí, hiệu quả, giá bán – đề xuất cải tiến.
+Báo cáo – phân tích: sản lượng, chi phí, hiệu quả, giá bán – khuyến nghị.
 
-Công nghệ đề xuất
+4.3. Công nghệ đề xuất
 
-Frontend: HTML, CSS, JavaScript (Bootstrap/Vanilla hoặc jQuery).
+Frontend: HTML, CSS, JavaScript (Bootstrap/jQuery hoặc Vanilla).
 
-Backend: PHP 8 (XAMPP) hoặc Java Spring Boot (tuỳ hướng triển khai của nhóm).
+Backend: PHP 8 (XAMPP) hoặc Java Spring Boot.
 
-Database: MySQL.
+CSDL: MySQL.
 
-Bản đồ: Leaflet/Mapbox GL để hiển thị vùng trồng và popup thông tin.
+Bản đồ: Leaflet/Mapbox GL.
 
-Tích hợp: QR code, đăng nhập phân quyền (User/Admin), xuất CSV/Excel/PDF.
+Tích hợp: đăng nhập phân quyền, QR code, xuất CSV/Excel/PDF.
 
-Đối tượng sử dụng
+4.4. Đối tượng & giá trị mang lại
 
-Nông hộ, hợp tác xã, doanh nghiệp thu mua, và cơ quan quản lý nông nghiệp.
+Đối tượng: nông hộ, hợp tác xã, doanh nghiệp thu mua, cơ quan quản lý.
 
-Giá trị mang lại
-
-Số hoá dữ liệu, minh bạch truy xuất, giảm rủi ro sâu bệnh, tối ưu vật tư, nâng giá trị thương hiệu “Xoài Đồng Tháp”.
+Giá trị: số hoá – minh bạch – truy xuất đầy đủ, giảm rủi ro sâu bệnh, tối ưu vật tư, ổn định đầu ra, nâng giá trị thương hiệu.
