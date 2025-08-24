@@ -23,7 +23,7 @@ Liên kết hợp tác xã – doanh nghiệp – nông hộ; đặt hàng theo 
 Xây dựng, quảng bá thương hiệu “Xoài Cao Lãnh/Đồng Tháp” ổn định thị trường.
 
 4. Hệ thống quản lý vùng xoài (tham khảo cấu trúc phần mềm)
-4.1. Tính năng chính
+  4.1. Tính năng chính
 
 Trang chủ: thông tin vùng xoài, tin tức – hỗ trợ.
 
@@ -43,7 +43,7 @@ Hồ sơ – truy xuất QR: tạo mã QR cho lô, hiển thị quy trình – c
 
 Dashboard & báo cáo: diện tích, sản lượng, tồn kho, sâu bệnh, tuân thủ, chất lượng theo vùng/giống.
 
-4.2. Quy trình quản lý
+  4.2. Quy trình quản lý
 
 Khai báo vùng: mã vùng, ranh giới, giống – mật độ.
 
@@ -57,7 +57,7 @@ Thu hoạch – phân loại: tạo lô, cân – phân cỡ, gán mã truy xu�
 
 Báo cáo – phân tích: sản lượng, chi phí, hiệu quả, giá bán – khuyến nghị.
 
-4.3. Công nghệ đề xuất
+  4.3. Công nghệ đề xuất
 
 Frontend: HTML, CSS, JavaScript (Bootstrap/jQuery hoặc Vanilla).
 
@@ -69,7 +69,7 @@ Bản đồ: Leaflet/Mapbox GL.
 
 Tích hợp: đăng nhập phân quyền, QR code, xuất CSV/Excel/PDF.
 
-4.4. Đối tượng & giá trị mang lại
+  4.4. Đối tượng & giá trị mang lại
 
 Đối tượng: nông hộ, hợp tác xã, doanh nghiệp thu mua, cơ quan quản lý.
 
